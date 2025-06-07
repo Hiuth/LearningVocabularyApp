@@ -29,6 +29,7 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
 
     //vocabulary column
     private static final String WORD = "word";
+    private static final String MEANING ="meaning";
     private static final String PROJECT_KEY= "project_key";
 
     public vocabularyAppDatabase(@Nullable Context context) {
@@ -46,6 +47,7 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_VOCABULARY = "CREATE TABLE " + TABLE_VOCABULARY +"("
             +KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
             +WORD +"TEXT,"
+            +MEANING+"TEXT,"
             +PROJECT_KEY + "INTEGER,"
             +"FOREIGN KEY("+ PROJECT_KEY+") REFERENCES " +TABLE_PROJECTS+"("+KEY_ID +"))";
 
