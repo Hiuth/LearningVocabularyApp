@@ -38,6 +38,7 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
 
     public vocabularyAppDatabase(@Nullable Context context) {
         super(context, DATABASE_NAME, null , DATABASE_VERSION);
+        this.context=context;
     }
 
     private static final String CREATE_TABLE_PROJECTS = "CREATE TABLE " + TABLE_PROJECTS + "("
@@ -51,9 +52,9 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_VOCABULARY = "CREATE TABLE " + TABLE_VOCABULARY +"("
             +KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            +WORD +"TEXT,"
-            +MEANING+"TEXT,"
-            +PROJECT_KEY + "INTEGER,"
+            +WORD +" TEXT,"
+            +MEANING+" TEXT,"
+            +PROJECT_KEY + " INTEGER,"
             +"FOREIGN KEY("+ PROJECT_KEY+") REFERENCES " +TABLE_PROJECTS+"("+KEY_ID +"))";
 
     @Override
@@ -74,7 +75,7 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(PROJECT_NAME,project.getProjectName());
         values.put(LEARNING_LANGUAGE,project.getLearningLanguage());
-        values.put(PROJECT_NAME,project.getProjectImage());
+        values.put(PROJECT_IMAGE,project.getProjectImage());
         values.put(CORRECT_IMAGE,project.getCorrectImage());
         values.put(WRONG_IMAGE,project.getWrongImage());
         long check = db.insert(TABLE_PROJECTS,null,values);
