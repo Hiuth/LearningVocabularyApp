@@ -1,12 +1,16 @@
 package com.example.learningvocabularyapp.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.learningvocabularyapp.model.Project;
 
 public class vocabularyAppDatabase extends SQLiteOpenHelper {
 
@@ -37,15 +41,16 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
     }
 
     private static final String CREATE_TABLE_PROJECTS = "CREATE TABLE " + TABLE_PROJECTS + "("
-            +KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-            +PROJECT_NAME + "TEXT,"
-            +LEARNING_LANGUAGE + "TEXT,"
-            +PROJECT_IMAGE +"TEXT,"
-            +CORRECT_IMAGE +"TEXT,"
-            +WRONG_IMAGE +"TEXT" +")";
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PROJECT_NAME + " TEXT, "
+            + LEARNING_LANGUAGE + " TEXT, "
+            + PROJECT_IMAGE + " BLOB, "
+            + CORRECT_IMAGE + " BLOB, "
+            + WRONG_IMAGE + " BLOB)";
+
 
     private static final String CREATE_TABLE_VOCABULARY = "CREATE TABLE " + TABLE_VOCABULARY +"("
-            +KEY_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+            +KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             +WORD +"TEXT,"
             +MEANING+"TEXT,"
             +PROJECT_KEY + "INTEGER,"
@@ -62,5 +67,22 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROJECTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VOCABULARY);
         onCreate(db);
+    }
+
+    public void createProject(Project project){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PROJECT_NAME,project.getProjectName());
+        values.put(LEARNING_LANGUAGE,project.getLearningLanguage());
+        values.put(PROJECT_NAME,project.getProjectImage());
+        values.put(CORRECT_IMAGE,project.getCorrectImage());
+        values.put(WRONG_IMAGE,project.getWrongImage());
+        long check = db.insert(TABLE_PROJECTS,null,values);
+        if(check == -1){
+            Toast.makeText(context, "Create project failed !", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Create project successfully !", Toast.LENGTH_SHORT).show();
+        }
+        db.close();
     }
 }

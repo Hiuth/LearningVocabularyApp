@@ -4,15 +4,14 @@ public class Project {
     private int id;
     private String projectName;
     private String learningLanguage;
-    private String projectImage;
-    private String correctImage;
-    private String wrongImage;
+    private byte [] projectImage;
+    private byte[] correctImage;
+    private byte[] wrongImage;
 
 
     public Project(){}
-    public Project(String projectName, int id, String learningLanguage, String correctImage, String wrongImage, String projectImage) {
+    public Project(String projectName, String learningLanguage, byte[] correctImage, byte[] wrongImage, byte[] projectImage) {
         this.projectName = projectName;
-        this.id = id;
         this.learningLanguage = learningLanguage;
         this.correctImage = correctImage;
         this.wrongImage = wrongImage;
@@ -30,15 +29,15 @@ public class Project {
         return learningLanguage;
     }
 
-    public String getProjectImage() {
+    public byte[] getProjectImage() {
         return projectImage;
     }
 
-    public String getCorrectImage() {
+    public byte[] getCorrectImage() {
         return correctImage;
     }
 
-    public String getWrongImage() {
+    public byte[] getWrongImage() {
         return wrongImage;
     }
 
@@ -50,7 +49,7 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public void setProjectImage(String projectImage) {
+    public void setProjectImage(byte[] projectImage) {
         this.projectImage = projectImage;
     }
 
@@ -58,11 +57,11 @@ public class Project {
         this.learningLanguage = learningLanguage;
     }
 
-    public void setCorrectImage(String correctImage) {
+    public void setCorrectImage(byte[]  correctImage) {
         this.correctImage = correctImage;
     }
 
-    public void setWrongImage(String wrongImage) {
+    public void setWrongImage(byte[]  wrongImage) {
         this.wrongImage = wrongImage;
     }
 
