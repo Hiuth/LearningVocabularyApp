@@ -188,5 +188,6 @@ public class CreateProjectActivity extends AppCompatActivity {
         Project project = new Project(name, learningLanguage,projectImageBytes,correctImageBytes,wrongImageBytes);
         appDatabase = new vocabularyAppDatabase(this);
         appDatabase.createProject(project);
+        finish();
     }
 }
