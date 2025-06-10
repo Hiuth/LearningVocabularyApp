@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button createProjectButton;
+    private Button createProjectButton, editWordButton;
     private RecyclerView recyclerView;
     private TextView textViewEmpty;
     private ProjectAdapter projectAdapter;
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, CreateProjectActivity.class);
             startActivity(intent);
         });
+
     }
 
     private void loadProjectList() {

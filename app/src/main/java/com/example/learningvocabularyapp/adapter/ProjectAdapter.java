@@ -1,6 +1,7 @@
 package com.example.learningvocabularyapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningvocabularyapp.R;
+import com.example.learningvocabularyapp.activity.EditVocabularyActivity;
 import com.example.learningvocabularyapp.model.Project;
 
 import java.util.List;
@@ -53,6 +55,29 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
         }else{
             holder.projectImage.setImageResource(R.drawable.ic_launcher_background);
         }
+        holder.buttonManageWords.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EditVocabularyActivity.class);
+            // Pass project ID to EditVocabularyActivity
+            intent.putExtra("PROJECT_ID", project.getId());
+            intent.putExtra("LEARNING_LANGUAGE",project.getLearningLanguage());
+            intent.putExtra("PROJECT_NAME", project.getProjectName());
+            context.startActivity(intent);
+        });
+
+        // Handle Start Quiz button click (if needed)
+//        holder.buttonStartQuiz.setOnClickListener(v -> {
+//            // TODO: Implement quiz functionality
+//        });
+//
+//        // Handle edit icon click (if needed)
+//        holder.editIcon.setOnClickListener(v -> {
+//            // TODO: Implement edit project functionality
+//        });
+//
+//        // Handle delete icon click (if needed)
+//        holder.deleteIcon.setOnClickListener(v -> {
+//            // TODO: Implement delete project functionality
+//        });
         //TODO: Gắn sự kiện cho các nút Start Quiz, Manage Words, Edit, Delete nếu cần
     }
 
