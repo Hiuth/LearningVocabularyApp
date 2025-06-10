@@ -17,6 +17,14 @@ public class Project {
         this.wrongImage = wrongImage;
         this.projectImage = projectImage;
     }
+    public Project(int id, String projectName, String learningLanguage, byte[] correctImage, byte[] wrongImage, byte[] projectImage) {
+        this.id = id;
+        this.projectName = projectName;
+        this.learningLanguage = learningLanguage;
+        this.correctImage = correctImage;
+        this.wrongImage = wrongImage;
+        this.projectImage = projectImage;
+    }
     public int getId() {
         return id;
     }

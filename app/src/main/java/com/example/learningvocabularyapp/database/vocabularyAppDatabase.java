@@ -2,6 +2,7 @@ package com.example.learningvocabularyapp.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -11,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.learningvocabularyapp.model.Project;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class vocabularyAppDatabase extends SQLiteOpenHelper {
 
@@ -85,5 +89,26 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
             Toast.makeText(context, "Create project successfully !", Toast.LENGTH_SHORT).show();
         }
         db.close();
+    }
+
+    public List<Project> getAllProject(){
+        List<Project> projectList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from "+TABLE_PROJECTS,null);
+        if(cursor.moveToFirst()){
+            do{
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ID));
+                String name  = cursor.getString(cursor.getColumnIndexOrThrow(PROJECT_NAME));
+                String language = cursor.getString(cursor.getColumnIndexOrThrow(LEARNING_LANGUAGE));
+                byte [] imageProject = cursor.getBlob(cursor.getColumnIndexOrThrow(PROJECT_IMAGE));
+                byte [] imageCorrect = cursor.getBlob(cursor.getColumnIndexOrThrow(CORRECT_IMAGE));
+                byte [] imageWrong = cursor.getBlob(cursor.getColumnIndexOrThrow(WRONG_IMAGE));
+
+                Project project = new Project(id, name,language, imageProject,imageCorrect,imageWrong);
+                projectList.add(project);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return projectList;
     }
 }

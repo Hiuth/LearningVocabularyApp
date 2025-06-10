@@ -94,14 +94,20 @@ public class CreateProjectActivity extends AppCompatActivity {
     }
 
     private final ActivityResultLauncher<String> galleryLauncher =
-            registerForActivityResult(new ActivityResultContracts.GetContent(),uri->{ //getContent chỉ có thể chọn file
-                if(uri != null){
+            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+                if (uri != null) {
+                    String mimeType = getContentResolver().getType(uri);
+                    if (mimeType != null && mimeType.equals("image/webp")) {
+                        Toast.makeText(this, "Ảnh WebP không được hỗ trợ. Vui lòng chọn PNG hoặc JPG.", Toast.LENGTH_SHORT).show();
+                        return; // Không xử lý ảnh WebP
+                    }
+
                     try {
-                        //Khai báo biến bitmap để lưu ảnh, MediaStore.Images.Media.getBitmap(): Method static để chuyển URI thành Bitmap
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-                        setImageData(bitmap);
-                    }catch (IOException e){
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                        setImageData(bitmap); // ✅ xử lý ảnh hợp lệ
+                    } catch (IOException e) {
                         e.printStackTrace();
+                        Toast.makeText(this, "Lỗi khi xử lý ảnh", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
