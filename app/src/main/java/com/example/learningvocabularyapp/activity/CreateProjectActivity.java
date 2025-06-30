@@ -93,33 +93,51 @@ public class CreateProjectActivity extends AppCompatActivity {
         }
     }
 
-    private final ActivityResultLauncher<String> galleryLauncher =
+    // Launcher riêng cho từng loại ảnh
+    private final ActivityResultLauncher<String> projectGalleryLauncher =
             registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
-                if (uri != null) {
-                    String mimeType = getContentResolver().getType(uri);
-                    if (mimeType != null && mimeType.equals("image/webp")) {
-                        Toast.makeText(this, "Ảnh WebP không được hỗ trợ. Vui lòng chọn PNG hoặc JPG.", Toast.LENGTH_SHORT).show();
-                        return; // Không xử lý ảnh WebP
-                    }
-
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                        setImageData(bitmap); // ✅ xử lý ảnh hợp lệ
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Toast.makeText(this, "Lỗi khi xử lý ảnh", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                if (uri != null) handleImageFromUri(uri, ImageType.PROJECT_IMAGE);
             });
+
+    private final ActivityResultLauncher<String> correctGalleryLauncher =
+            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+                if (uri != null) handleImageFromUri(uri, ImageType.CORRECT_IMAGE);
+            });
+
+    private final ActivityResultLauncher<String> wrongGalleryLauncher =
+            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+                if (uri != null) handleImageFromUri(uri, ImageType.WRONG_IMAGE);
+            });
+
+    // Camera launcher dùng chung, truyền loại ảnh qua biến tạm
+    private ImageType cameraImageType = null;
     private final ActivityResultLauncher<Intent> cameraLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result ->{
-                if(result.getResultCode() == RESULT_OK && result.getData() != null){ //kiểm tra kết quả ảnh lấy từ camera về
-                    Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data"); // lấy dữ liệu từ Intent (intent chứa data của ảnh vừa chụp) và ép kiểu về bitmap
-                    setImageData(bitmap);
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if(result.getResultCode() == RESULT_OK && result.getData() != null){
+                    Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
+                    if (cameraImageType != null) {
+                        setImageDataWithType(bitmap, cameraImageType);
+                    }
                 }
             });
 
-    private void launchCamera() {
+    private void handleImageFromUri(android.net.Uri uri, ImageType imageType) {
+        String mimeType = getContentResolver().getType(uri);
+        if (mimeType != null && mimeType.equals("image/webp")) {
+            Toast.makeText(this, "Ảnh WebP không được hỗ trợ. Vui lòng chọn PNG hoặc JPG.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+            setImageDataWithType(bitmap, imageType);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Lỗi khi xử lý ảnh", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void launchCamera(ImageType imageType) {
+        cameraImageType = imageType;
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraLauncher.launch(intent);
     }
@@ -141,35 +159,26 @@ public class CreateProjectActivity extends AppCompatActivity {
 
         // Cover Image
         findViewById(R.id.btn_cover_gallery).setOnClickListener(v -> {
-            currentImageType = ImageType.PROJECT_IMAGE;
-            galleryLauncher.launch("image/*");
+            projectGalleryLauncher.launch("image/*");
         });
-
         findViewById(R.id.btn_cover_camera).setOnClickListener(v -> {
-            currentImageType = ImageType.PROJECT_IMAGE;
-            launchCamera();
+            launchCamera(ImageType.PROJECT_IMAGE);
         });
 
         // Meme correct
         findViewById(R.id.btn_correct_gallery).setOnClickListener(v -> {
-            currentImageType = ImageType.CORRECT_IMAGE;
-            galleryLauncher.launch("image/*");
+            correctGalleryLauncher.launch("image/*");
         });
-
         findViewById(R.id.btn_correct_camera).setOnClickListener(v -> {
-            currentImageType = ImageType.CORRECT_IMAGE;
-            launchCamera();
+            launchCamera(ImageType.CORRECT_IMAGE);
         });
 
         // Meme wrong
         findViewById(R.id.btn_wrong_gallery).setOnClickListener(v -> {
-            currentImageType = ImageType.WRONG_IMAGE;
-            galleryLauncher.launch("image/*");
+            wrongGalleryLauncher.launch("image/*");
         });
-
         findViewById(R.id.btn_wrong_camera).setOnClickListener(v -> {
-            currentImageType = ImageType.WRONG_IMAGE;
-            launchCamera();
+            launchCamera(ImageType.WRONG_IMAGE);
         });
 
         btnSave.setOnClickListener(v -> saveProjectToDatabase());
@@ -185,9 +194,40 @@ public class CreateProjectActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show();
             return;
         }
-        Project project = new Project(name, learningLanguage,projectImageBytes,correctImageBytes,wrongImageBytes);
+        Project project = new Project(name, learningLanguage,correctImageBytes,wrongImageBytes,projectImageBytes);
         appDatabase = new vocabularyAppDatabase(this);
         appDatabase.createProject(project);
         finish();
+    }
+
+    // Sửa lại setImageData để nhận thêm tham số loại ảnh:
+    private void setImageDataWithType(Bitmap bitmap, ImageType imageType){
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] imageData = stream.toByteArray();
+
+        // Giới hạn dung lượng ảnh tối đa 10MB
+        if (imageData.length > 10 * 1024 * 1024) {
+            Toast.makeText(this, "Ảnh quá lớn! Vui lòng chọn ảnh nhỏ hơn 10MB.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        switch (imageType){
+            case PROJECT_IMAGE:
+                projectImageBytes = imageData;
+                projectImage.setVisibility(ImageView.VISIBLE);
+                projectImage.setImageBitmap(bitmap);
+                break;
+            case CORRECT_IMAGE:
+                correctImageBytes = imageData;
+                correctImage.setVisibility(ImageView.VISIBLE);
+                correctImage.setImageBitmap(bitmap);
+                break;
+            case WRONG_IMAGE:
+                wrongImageBytes = imageData;
+                wrongImage.setVisibility(ImageView.VISIBLE);
+                wrongImage.setImageBitmap(bitmap);
+                break;
+        }
     }
 }

@@ -1,15 +1,18 @@
 package com.example.learningvocabularyapp.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learningvocabularyapp.R;
 import com.example.learningvocabularyapp.activity.EditVocabularyActivity;
 import com.example.learningvocabularyapp.model.Project;
+import com.example.learningvocabularyapp.database.vocabularyAppDatabase;
 
 import java.util.List;
 
@@ -75,9 +79,30 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
 //        });
 //
 //        // Handle delete icon click (if needed)
-//        holder.deleteIcon.setOnClickListener(v -> {
-//            // TODO: Implement delete project functionality
-//        });
+        holder.deleteIcon.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Delete Project")
+                    .setMessage("Are you sure you want to delete this project?\nAll vocabularies in this project will also be deleted.")
+                    .setIcon(R.drawable.ic_delete) // Đặt icon xóa nếu có
+                    .setPositiveButton("Delete", (dialog, which) -> {
+                        vocabularyAppDatabase db = new vocabularyAppDatabase(context);
+                        db.deleteProject(project.getId());
+
+                        projectList.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, projectList.size());
+
+                        Toast.makeText(context, "Project deleted!", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            // Làm nút Delete nổi bật màu đỏ
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY);
+        });
         //TODO: Gắn sự kiện cho các nút Start Quiz, Manage Words, Edit, Delete nếu cần
     }
 

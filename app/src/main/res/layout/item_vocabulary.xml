@@ -42,14 +42,6 @@
                 android:textColor="#6B7280"
                 android:layout_marginBottom="2dp" />
 
-            <TextView
-                android:id="@+id/word_pronunciation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="/ˈæpəl/"
-                android:textSize="12sp"
-                android:textColor="#9CA3AF"
-                android:textStyle="italic" />
 
         </LinearLayout>
 

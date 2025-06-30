@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.learningvocabularyapp.model.Project;
+import com.example.learningvocabularyapp.model.Vocabulary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,7 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //project
     public void createProject(Project project){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -104,11 +106,64 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
                 byte [] imageCorrect = cursor.getBlob(cursor.getColumnIndexOrThrow(CORRECT_IMAGE));
                 byte [] imageWrong = cursor.getBlob(cursor.getColumnIndexOrThrow(WRONG_IMAGE));
 
-                Project project = new Project(id, name,language, imageProject,imageCorrect,imageWrong);
+                Project project = new Project(id, name, language, imageCorrect, imageWrong, imageProject);
                 projectList.add(project);
             }while (cursor.moveToNext());
         }
         cursor.close();
         return projectList;
+    }
+
+    public void deleteProject(int projectId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Xóa tất cả từ vựng thuộc project này (nếu có liên kết)
+        db.delete(TABLE_VOCABULARY, PROJECT_KEY + " = ?", new String[]{String.valueOf(projectId)});
+        // Xóa project
+        db.delete(TABLE_PROJECTS, KEY_ID + " = ?", new String[]{String.valueOf(projectId)});
+        db.close();
+        Toast.makeText(context, "Project deleted successfully!", Toast.LENGTH_SHORT).show();
+    }   
+
+
+    //vocabulary
+    public void CreateVocabulary(int projectId, Vocabulary vocabulary){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(WORD,vocabulary.getWord());
+        values.put(MEANING,vocabulary.getMeaning());
+        values.put(PROJECT_KEY,projectId);
+        long check = db.insert(TABLE_VOCABULARY,null,values);
+        if(check == -1){
+            Toast.makeText(context, "Create vocabulary failed !", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Create vocabulary successfully !", Toast.LENGTH_SHORT).show();
+
+        }
+        db.close();
+    }
+
+    public List<Vocabulary> getVocabularyByProjectId(int projectId){
+        List<Vocabulary> vocabularyList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_VOCABULARY + " WHERE " + PROJECT_KEY + " = ?",
+         new String[]{String.valueOf(projectId)});
+        if(cursor.moveToFirst()){
+            do{
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ID));
+                String word = cursor.getString(cursor.getColumnIndexOrThrow(WORD));
+                String meaning = cursor.getString(cursor.getColumnIndexOrThrow(MEANING));
+                Vocabulary vocabulary = new Vocabulary(id, word, meaning, projectId);
+                vocabularyList.add(vocabulary);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return vocabularyList;
+    }
+    
+    public void deleteVocabulary(int vocabularyId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_VOCABULARY, KEY_ID + " = ?", new String[]{String.valueOf(vocabularyId)});
+        db.close();
+        Toast.makeText(context, "Vocabulary deleted successfully!", Toast.LENGTH_SHORT).show();
     }
 }

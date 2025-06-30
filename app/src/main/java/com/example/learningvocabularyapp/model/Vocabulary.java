@@ -6,9 +6,10 @@ public class Vocabulary {
     private String meaning;
     private int projectId;
 
-    public Vocabulary() {
+    public Vocabulary(String english, String vietnamese) {
+        this.word = english;
+        this.meaning = vietnamese;
     }
-
     public Vocabulary(int id, String word, String meaning, int projectId) {
         this.id = id;
         this.word = word;
