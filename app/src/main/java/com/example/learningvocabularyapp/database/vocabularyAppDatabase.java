@@ -114,6 +114,36 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
         return projectList;
     }
 
+    public Project getProjectById(int projectId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_PROJECTS + " WHERE " + KEY_ID + " = ?", new String[]{String.valueOf(projectId)});
+        Project project = null;
+        if (cursor.moveToFirst()) {
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(PROJECT_NAME));
+            String language = cursor.getString(cursor.getColumnIndexOrThrow(LEARNING_LANGUAGE));
+            byte[] imageProject = cursor.getBlob(cursor.getColumnIndexOrThrow(PROJECT_IMAGE));
+            byte[] imageCorrect = cursor.getBlob(cursor.getColumnIndexOrThrow(CORRECT_IMAGE));
+            byte[] imageWrong = cursor.getBlob(cursor.getColumnIndexOrThrow(WRONG_IMAGE));
+            project = new Project(projectId, name, language, imageCorrect, imageWrong, imageProject);
+        }
+        cursor.close();
+        db.close();
+    return project;
+}
+
+    public void updateProject(Project project) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PROJECT_NAME, project.getProjectName());
+        values.put(LEARNING_LANGUAGE, project.getLearningLanguage());
+        values.put(PROJECT_IMAGE, project.getProjectImage());
+        values.put(CORRECT_IMAGE, project.getCorrectImage());
+        values.put(WRONG_IMAGE, project.getWrongImage());
+        db.update(TABLE_PROJECTS, values, KEY_ID + " = ?", new String[]{String.valueOf(project.getId())});
+        db.close();
+        Toast.makeText(context, "Project updated successfully!", Toast.LENGTH_SHORT).show();
+    }
+    
     public void deleteProject(int projectId) {
         SQLiteDatabase db = this.getWritableDatabase();
         // Xóa tất cả từ vựng thuộc project này (nếu có liên kết)
@@ -140,6 +170,16 @@ public class vocabularyAppDatabase extends SQLiteOpenHelper {
 
         }
         db.close();
+    }
+
+    public void updateVocabulary(Vocabulary vocabulary) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(WORD, vocabulary.getWord());
+        values.put(MEANING, vocabulary.getMeaning());
+        db.update(TABLE_VOCABULARY, values, KEY_ID + " = ?", new String[]{String.valueOf(vocabulary.getId())});
+        db.close();
+        Toast.makeText(context, "Vocabulary updated successfully!", Toast.LENGTH_SHORT).show();
     }
 
     public List<Vocabulary> getVocabularyByProjectId(int projectId){

@@ -4,11 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -142,6 +144,9 @@ public class CreateProjectActivity extends AppCompatActivity {
         cameraLauncher.launch(intent);
     }
 
+    private boolean isEditMode = false;
+    private int editingProjectId = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -181,7 +186,54 @@ public class CreateProjectActivity extends AppCompatActivity {
             launchCamera(ImageType.WRONG_IMAGE);
         });
 
-        btnSave.setOnClickListener(v -> saveProjectToDatabase());
+        TextView title = findViewById(R.id.tv_create_project_title); // id của TextView tiêu đề
+
+        Intent intent = getIntent();
+        isEditMode = intent.getBooleanExtra("IS_EDIT", false);
+        if (isEditMode) {
+            editingProjectId = intent.getIntExtra("PROJECT_ID", -1);
+            if (title != null) title.setText("Update Project");
+
+            // Lấy dữ liệu từ database
+            appDatabase = new vocabularyAppDatabase(this);
+            Project project = appDatabase.getProjectById(editingProjectId);
+            if (project != null) {
+                projectName.setText(project.getProjectName());
+                language.setText(project.getLearningLanguage());
+
+                byte[] projectImgBytes = project.getProjectImage();
+                byte[] correctImgBytes = project.getCorrectImage();
+                byte[] wrongImgBytes = project.getWrongImage();
+
+                if (projectImgBytes != null) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(projectImgBytes, 0, projectImgBytes.length);
+                    projectImage.setImageBitmap(bitmap);
+                    projectImage.setVisibility(ImageView.VISIBLE);
+                    projectImageBytes = projectImgBytes;
+                }
+                if (correctImgBytes != null) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(correctImgBytes, 0, correctImgBytes.length);
+                    correctImage.setImageBitmap(bitmap);
+                    correctImage.setVisibility(ImageView.VISIBLE);
+                    correctImageBytes = correctImgBytes;
+                }
+                if (wrongImgBytes != null) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(wrongImgBytes, 0, wrongImgBytes.length);
+                    wrongImage.setImageBitmap(bitmap);
+                    wrongImage.setVisibility(ImageView.VISIBLE);
+                    wrongImageBytes = wrongImgBytes;
+                }
+            }
+            btnSave.setText("Update Project");
+        }
+
+        btnSave.setOnClickListener(v -> {
+            if (isEditMode) {
+                updateProjectInDatabase();
+            } else {
+                saveProjectToDatabase();
+            }
+        });
 
         findViewById(R.id.btn_cancel).setOnClickListener(v -> finish());
     }
@@ -197,6 +249,20 @@ public class CreateProjectActivity extends AppCompatActivity {
         Project project = new Project(name, learningLanguage,correctImageBytes,wrongImageBytes,projectImageBytes);
         appDatabase = new vocabularyAppDatabase(this);
         appDatabase.createProject(project);
+        finish();
+    }
+
+    private void updateProjectInDatabase() {
+        String name = projectName.getText().toString().trim();
+        String learningLanguage = language.getText().toString().trim();
+
+        if(name.isEmpty() || learningLanguage.isEmpty()){
+            Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Project project = new Project(editingProjectId, name, learningLanguage, correctImageBytes, wrongImageBytes, projectImageBytes);
+        appDatabase = new vocabularyAppDatabase(this);
+        appDatabase.updateProject(project);
         finish();
     }
 

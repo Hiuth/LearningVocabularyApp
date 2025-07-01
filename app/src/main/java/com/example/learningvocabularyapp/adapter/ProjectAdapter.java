@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learningvocabularyapp.R;
+import com.example.learningvocabularyapp.activity.CreateProjectActivity;
 import com.example.learningvocabularyapp.activity.EditVocabularyActivity;
 import com.example.learningvocabularyapp.model.Project;
 import com.example.learningvocabularyapp.database.vocabularyAppDatabase;
@@ -73,12 +74,15 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
 //            // TODO: Implement quiz functionality
 //        });
 //
-//        // Handle edit icon click (if needed)
-//        holder.editIcon.setOnClickListener(v -> {
-//            // TODO: Implement edit project functionality
-//        });
-//
-//        // Handle delete icon click (if needed)
+        // Handle edit icon click (if needed)
+        holder.editIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CreateProjectActivity.class);
+            intent.putExtra("PROJECT_ID", project.getId());
+            intent.putExtra("IS_EDIT", true);
+            context.startActivity(intent);
+        });
+
+     // Handle delete icon click (if needed)
         holder.deleteIcon.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Delete Project")
