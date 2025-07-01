@@ -29,6 +29,8 @@ public class EditVocabularyActivity extends AppCompatActivity {
     private int projectId;
     private String projectName, projectLanguage;
 
+    private Vocabulary editingVocabulary = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,6 +175,64 @@ public class EditVocabularyActivity extends AppCompatActivity {
          loadVocabularyList();
         etEnglish.setText("");
         etVietnamese.setText("");
+        hideAddWordForm();
+    }
+
+    public void showEditWordForm(Vocabulary vocabulary) {
+        View addWordForm = findViewById(R.id.add_word_form);
+        addWordForm.setVisibility(View.VISIBLE);
+
+        // Đổi tiêu đề
+        TextView tvTitle = addWordForm.findViewById(R.id.tv_add_word_title);
+        tvTitle.setText("Edit Word");
+
+        // Điền dữ liệu cũ
+        EditText etEnglish = addWordForm.findViewById(R.id.et_english_word);
+        EditText etVietnamese = addWordForm.findViewById(R.id.et_vietnamese_meaning);
+        etEnglish.setText(vocabulary.getWord());
+        etVietnamese.setText(vocabulary.getMeaning());
+
+        // Làm mờ nút Add New Word
+        AppCompatButton addWordButton = findViewById(R.id.add_word_button);
+        addWordButton.setAlpha(0.5f);
+        addWordButton.setEnabled(false);
+
+        // Lưu lại từ vựng đang sửa
+        editingVocabulary = vocabulary;
+
+        // Đổi sự kiện nút Save
+        Button btnSave = addWordForm.findViewById(R.id.btn_save);
+        btnSave.setOnClickListener(v -> saveEditedWord());
+    }
+
+    private void saveEditedWord() {
+        View addWordForm = findViewById(R.id.add_word_form);
+        EditText etEnglish = addWordForm.findViewById(R.id.et_english_word);
+        EditText etVietnamese = addWordForm.findViewById(R.id.et_vietnamese_meaning);
+
+        String english = etEnglish.getText().toString().trim();
+        String vietnamese = etVietnamese.getText().toString().trim();
+
+        if (english.isEmpty() || vietnamese.isEmpty()) {
+            if (english.isEmpty()) etEnglish.setError("Required");
+            if (vietnamese.isEmpty()) etVietnamese.setError("Required");
+            return;
+        }
+
+        // Cập nhật database
+        editingVocabulary.setWord(english);
+        editingVocabulary.setMeaning(vietnamese);
+        db.updateVocabulary(editingVocabulary);
+
+        // Reload danh sách
+        loadVocabularyList();
+
+        // Reset form về trạng thái thêm mới
+        etEnglish.setText("");
+        etVietnamese.setText("");
+        TextView tvTitle = addWordForm.findViewById(R.id.tv_add_word_title);
+        tvTitle.setText("Add New Word");
+        editingVocabulary = null;
         hideAddWordForm();
     }
 }

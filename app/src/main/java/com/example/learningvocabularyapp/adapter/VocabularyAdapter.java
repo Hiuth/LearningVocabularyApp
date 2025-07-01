@@ -67,6 +67,15 @@ public class VocabularyAdapter extends RecyclerView.Adapter<VocabularyAdapter.Vo
                     .setNegativeButton("Cancel", null)
                     .show();
         });
+
+        // Sự kiện sửa từ vựng
+        holder.editWordButton.setOnClickListener(v -> {
+            Context context = holder.itemView.getContext();
+            if (context instanceof com.example.learningvocabularyapp.activity.EditVocabularyActivity) {
+                ((com.example.learningvocabularyapp.activity.EditVocabularyActivity) context)
+                    .showEditWordForm(vocabulary);
+            }
+        });
     }
 
     @Override
