@@ -1,0 +1,135 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F3F7FF"
+    android:gravity="center_horizontal"
+    android:padding="0dp">
+
+    <!-- Header (có thể dùng chung với quiz) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="24dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:id="@+id/tv_quiz_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Food Vocabulary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:textColor="#222222" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_question_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Question 1 of 5"
+        android:textSize="15sp"
+        android:textColor="#444"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:progress="20"
+        android:max="100"
+        android:progressDrawable="@drawable/progress_bar_quiz"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="0dp"/>
+
+    <!-- Card Result -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_card_quiz"
+        android:elevation="4dp"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Icon trạng thái -->
+        <ImageView
+            android:id="@+id/img_result_icon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_correct"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Text trạng thái -->
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Correct!"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#22B14C"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"/>
+
+        <!-- Nếu sai thì hiện đáp án đúng -->
+        <TextView
+            android:id="@+id/tv_correct_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The correct answer is: rice"
+            android:textSize="16sp"
+            android:textColor="#222"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+        <!-- Ảnh meme hoặc ảnh liên quan -->
+        <ImageView
+            android:id="@+id/img_meme"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:background="#F3F3F3"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_image_placeholder"
+            android:layout_marginBottom="24dp"/>
+
+        <Button
+            android:id="@+id/btn_next_question"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Next Question"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:background="@drawable/bg_btn_quiz"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: 1/1"
+        android:textSize="16sp"
+        android:textColor="#444"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

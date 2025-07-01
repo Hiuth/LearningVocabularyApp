@@ -15,30 +15,22 @@
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:src="@drawable/ic_arrow_back"
-            android:contentDescription="Back" />
+            android:contentDescription="Back"
+            android:padding="4dp" />
 
         <TextView
             android:id="@+id/txtProjectName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Project Name Here"
+            android:text="Quiz Mode"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginStart="12dp" />
+            android:layout_marginStart="16dp"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtChooseMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose Quiz Mode"
-        android:layout_marginTop="8dp"
-        android:textColor="#777777" />
-
-    <!-- Vietnamese -> Foreign -->
     <Button
         android:id="@+id/btnVNToForeign"
         android:layout_width="match_parent"
@@ -51,7 +43,6 @@
         android:drawableStart="@drawable/ic_arrow_forward"
         android:padding="12dp" />
 
-    <!-- Foreign -> Vietnamese -->
     <Button
         android:id="@+id/btnForeignToVN"
         android:layout_width="match_parent"
@@ -61,36 +52,25 @@
         android:text="English → Vietnamese"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:drawableStart="@drawable/ic_arrow_back_text"
         android:padding="12dp" />
 
-    <!-- Mixed mode -->
     <Button
         android:id="@+id/btnMixedMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#AA3EE7"
-        android:text="Mixed Mode"
-        android:textColor="@android:color/white"
+        android:backgroundTint="#FFC107"
+        android:text="Mix Both Directions"
+        android:textColor="#222"
         android:textStyle="bold"
-        android:drawableStart="@drawable/ic_shuffle"
         android:padding="12dp" />
 
-    <!-- Instructions -->
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quiz Instructions"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="32dp"
-        android:paddingBottom="8dp" />
-
-    <TextView
+        android:id="@+id/tvInstructions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="- Type your answer and press Enter or tap Submit\n - Answers are case-insensitive\n\ - You'll see a meme for correct/incorrect answers\n - Complete all words to finish the quiz"
-    android:textColor="#555"
-    android:lineSpacingExtra="4dp" />
+        android:layout_marginTop="32dp"
+        android:text="- Type your answer and press Enter or tap Submit\n- Answers are case-insensitive\n- You'll see a meme for correct/incorrect answers\n- Complete all words to finish the quiz"
+        android:textColor="#555"
+        android:lineSpacingExtra="4dp" />
 </LinearLayout>

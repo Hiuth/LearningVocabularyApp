@@ -1,0 +1,133 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/bg_gradient_quiz_complete">
+
+    <!-- Card chính -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:elevation="12dp"
+        android:layout_gravity="center"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_quiz_gradient"
+            android:padding="36dp"
+            android:gravity="center_horizontal">
+
+            <!-- Icon chúc mừng với hiệu ứng -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="40dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="#4CAF50">
+
+                <ImageView
+                    android:id="@+id/img_congrats"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_trophy"
+                    android:layout_gravity="center"
+                    android:contentDescription="Congratulations"
+                    app:tint="#fff" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_quiz_complete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🎉 Quiz Complete! 🎉"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="#1a1a1a"
+                android:gravity="center"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-medium" />
+
+            <!-- Score percentage với gradient -->
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:background="@drawable/circle_gradient_score"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/tv_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0%"
+                    android:textSize="36sp"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SCORE"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:alpha="0.8"
+                    android:letterSpacing="0.1" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Performance"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#333"
+                android:gravity="center"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tv_score_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 out of 5 correct"
+                android:textSize="16sp"
+                android:textColor="#666"
+                android:gravity="center"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Divider line -->
+            <View
+                android:layout_width="60dp"
+                android:layout_height="2dp"
+                android:background="@drawable/gradient_divider"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Chỉ có 1 nút Back to Home -->
+            <Button
+                android:id="@+id/btn_back_home"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="Back to Home"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                android:background="@drawable/btn_gradient_home"
+                android:elevation="4dp"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

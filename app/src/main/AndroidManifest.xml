@@ -36,6 +36,10 @@
             android:name=".activity.EditVocabularyActivity"
             android:exported="false"
             android:theme="@style/Theme.LearningVocabularyApp" />
+        <activity android:name=".activity.QuizModeActivity"/>
+        <activity android:name=".activity.QuizActivity"/>
+        <activity android:name=".activity.ResultQuizActivity"/>
+        <activity android:name=".activity.QuizCompleteActivity"/>
 
     </application>
 

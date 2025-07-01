@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learningvocabularyapp.R;
 import com.example.learningvocabularyapp.activity.CreateProjectActivity;
 import com.example.learningvocabularyapp.activity.EditVocabularyActivity;
+import com.example.learningvocabularyapp.activity.QuizActivity;
+import com.example.learningvocabularyapp.activity.QuizModeActivity;
 import com.example.learningvocabularyapp.model.Project;
 import com.example.learningvocabularyapp.database.vocabularyAppDatabase;
 
@@ -70,9 +72,14 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
         });
 
         // Handle Start Quiz button click (if needed)
-//        holder.buttonStartQuiz.setOnClickListener(v -> {
-//            // TODO: Implement quiz functionality
-//        });
+        holder.buttonStart.setOnClickListener(v -> {
+            // Đúng: chuyển sang QuizModeActivity để chọn chế độ quiz
+            Intent intent = new Intent(context, QuizModeActivity.class);
+            intent.putExtra("PROJECT_ID", project.getId());
+            intent.putExtra("LEARNING_LANGUAGE", project.getLearningLanguage());
+            intent.putExtra("PROJECT_NAME", project.getProjectName());
+            context.startActivity(intent);
+        });
 //
         // Handle edit icon click (if needed)
         holder.editIcon.setOnClickListener(v -> {
@@ -118,7 +125,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
     public static class ProjectViewHolder extends RecyclerView.ViewHolder {
         ImageView projectImage,editIcon, deleteIcon;
         TextView textViewProjectName, textViewLanguage;
-        Button buttonStart, buttonManageWords;
+        Button buttonStart, buttonManageWords,buttonStartQuiz;
 
         public ProjectViewHolder(@NonNull View itemView){
             super(itemView);
