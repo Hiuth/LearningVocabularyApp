@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="green">#4CAF50</color>
-    <color name="green_600">#22B14C</color>
-    <color name="red_600">#E53935</color>
+    <!-- Note colors -->
+    <color name="note_yellow">#FFF3C4</color>
+    <color name="note_pink">#FFB3BA</color>
+    <color name="note_blue">#BAE1FF</color>
+    <color name="note_green">#BAFFC9</color>
+    <color name="note_purple">#D4C4FB</color>
+    <color name="note_orange">#FFDFBA</color>
+    <color name="note_mint">#C4FFF3</color>
+    <color name="note_coral">#FFC4C4</color>
+    <!-- Theme colors -->
+    <color name="background_color">#333333</color>
+    <color name="text_color">#FFFFFF</color>
+    <color name="icon_color">#CCCCCC</color>
+    <color name="card_background">#1E1E1E</color>
+    <color name="tab_selected_text">#ffffff</color>
+    <color name="tab_unselected_text">#666666</color>
+    <color name="tab_selected_underline">#ffffff</color>
 </resources>
