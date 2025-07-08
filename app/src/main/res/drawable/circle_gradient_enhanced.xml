@@ -1,0 +1,21 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Border ring -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/quiz_card_border" />
+        </shape>
+    </item>
+    
+    <!-- Inner gradient circle -->
+    <item android:inset="3dp">
+        <shape android:shape="oval">
+            <gradient
+                android:startColor="@color/quiz_circle_start"
+                android:endColor="@color/quiz_circle_end"
+                android:angle="45"
+                android:type="linear" />
+        </shape>
+    </item>
+    
+</layer-list>

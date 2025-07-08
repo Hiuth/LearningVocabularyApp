@@ -1,0 +1,38 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Background gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#E8F5E8"
+                android:centerColor="#C8E6C9"
+                android:endColor="#A5D6A7"
+                android:angle="135"
+                android:type="linear" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    
+    <!-- Success icon -->
+    <item android:gravity="center">
+        <vector 
+            android:width="64dp"
+            android:height="64dp"
+            android:viewportWidth="24"
+            android:viewportHeight="24">
+            <path
+                android:fillColor="#2E7D32"
+                android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM9.29,16.29L5.7,12.7c-0.39,-0.39 -0.39,-1.02 0,-1.41 0.39,-0.39 1.02,-0.39 1.41,0L10,14.17l6.88,-6.88c0.39,-0.39 1.02,-0.39 1.41,0 0.39,0.39 0.39,1.02 0,1.41l-7.59,7.59c-0.38,0.39 -1.02,0.39 -1.41,0z"/>
+        </vector>
+    </item>
+    
+    <!-- Celebration text -->
+    <item 
+        android:gravity="bottom|center_horizontal"
+        android:bottom="16dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" />
+        </shape>
+    </item>
+    
+</layer-list>
