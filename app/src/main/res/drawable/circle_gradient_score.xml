@@ -1,6 +1,8 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+<shape xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:shape="oval">
     <gradient
-        android:startColor="#4CAF50"
-        android:endColor="#2E7D32"
-        android:angle="45" />
+        android:startColor="@color/quiz_circle_start"
+        android:endColor="@color/quiz_circle_end"
+        android:angle="45"
+        android:type="linear" />
 </shape>

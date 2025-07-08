@@ -60,7 +60,7 @@
 
     <!-- Quiz Complete specific colors - Thêm màu thiếu phù hợp dark theme -->
     <color name="quiz_complete_bg">#1A1A1A</color>       <!-- Giống background_color -->
-    <color name="quiz_card_bg">#E3F4FF</color>           <!-- Tối hơn note_paper_main -->
+    <color name="quiz_card_bg">#D3D3D3</color>           <!-- Tối hơn note_paper_main -->
     <color name="quiz_icon_bg">#60A5FA</color>           <!-- Blue accent -->
 
     <!-- Trophy and celebration colors - Thêm màu thiếu -->

@@ -1,76 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layoutQuizMode"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F9FF"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/background_color"
+    android:orientation="vertical">
 
-    <!-- Back and Title -->
+    <!-- Header Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/header_background"
+        android:elevation="4dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:paddingStart="16dp"
+        android:paddingTop="36dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp">
 
-        <ImageView
+        <!-- Back Button -->
+        <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Quay lại"
+            android:padding="8dp"
             android:src="@drawable/ic_arrow_back"
-            android:contentDescription="Back"
-            android:padding="4dp" />
+            android:tint="@color/icon_color" />
 
+        <!-- Title -->
         <TextView
             android:id="@+id/txtProjectName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Quiz Mode"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:text="Chế độ Quiz"
+            android:textColor="@color/text_color"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginStart="16dp"/>
+            android:textStyle="bold" />
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnVNToForeign"
+    <!-- Content Container -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="#2F6FED"
-        android:text="Vietnamese → English"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:drawableStart="@drawable/ic_arrow_forward"
-        android:padding="12dp" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <Button
-        android:id="@+id/btnForeignToVN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#28A745"
-        android:text="English → Vietnamese"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:padding="12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
 
-    <Button
-        android:id="@+id/btnMixedMode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#FFC107"
-        android:text="Mix Both Directions"
-        android:textColor="#222"
-        android:textStyle="bold"
-        android:padding="12dp" />
+            <!-- Quiz Mode Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/note_section_background"
+                android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvInstructions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="- Type your answer and press Enter or tap Submit\n- Answers are case-insensitive\n- You'll see a meme for correct/incorrect answers\n- Complete all words to finish the quiz"
-        android:textColor="#555"
-        android:lineSpacingExtra="4dp" />
+                <!-- Header Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="36dp"
+                    android:background="@drawable/note_section_header"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="📝 Chọn chế độ Quiz"
+                        android:textColor="@color/note_text_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Content Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="16dp">
+
+                    <!-- VN to Foreign -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/note_field_background"
+                        android:orientation="vertical"
+                        android:paddingStart="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="🇻🇳 ➡️ 🌍 Việt → Ngoại ngữ"
+                            android:textColor="@color/note_text_secondary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnVNToForeign"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@drawable/note_button_style"
+                            android:elevation="0dp"
+                            android:stateListAnimator="@null"
+                            android:text="Vietnamese → English"
+                            android:textAllCaps="false"
+                            android:textColor="@color/note_text_button"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Foreign to VN -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/note_field_background"
+                        android:orientation="vertical"
+                        android:paddingStart="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="🌍 ➡️ 🇻🇳 Ngoại ngữ → Việt"
+                            android:textColor="@color/note_text_secondary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnForeignToVN"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@drawable/note_button_style"
+                            android:elevation="0dp"
+                            android:stateListAnimator="@null"
+                            android:text="English → Vietnamese"
+                            android:textAllCaps="false"
+                            android:textColor="@color/note_text_button"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Mixed Mode -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/note_field_background"
+                        android:orientation="vertical"
+                        android:paddingStart="16dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="🔄 Chế độ hỗn hợp"
+                            android:textColor="@color/note_text_secondary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnMixedMode"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@drawable/note_button_style"
+                            android:elevation="0dp"
+                            android:stateListAnimator="@null"
+                            android:text="🔄 Trộn cả hai hướng"
+                            android:textAllCaps="false"
+                            android:textColor="@color/note_text_button"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Instructions Paper -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="-10dp"
+                android:background="@drawable/note_paper_background"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="70dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="24dp">
+
+                <!-- Instructions Title -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="📚 Hướng dẫn"
+                    android:textColor="@color/note_text_title"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Instructions Content -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/note_field_background"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvInstructions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:lineSpacingExtra="4dp"
+                        android:text="• ⌨️ Gõ câu trả lời và nhấn Enter hoặc Gửi\n• 🔤 Không phân biệt chữ hoa/thường\n• 😄 Bạn sẽ thấy meme khi trả lời đúng/sai\n• ✅ Hoàn thành tất cả từ để kết thúc quiz"
+                        android:textColor="@color/note_text_secondary"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>

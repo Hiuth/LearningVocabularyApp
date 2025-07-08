@@ -1,124 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F3F7FF"
-    android:padding="0dp">
+    android:background="@color/background_color"
+    android:orientation="vertical">
 
     <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/note_header_background"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingTop="24dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:gravity="center_vertical">
+        android:paddingLeft="16dp"
+        android:paddingTop="40dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp">
 
-        <ImageView
+        <!-- Back button -->
+        <ImageButton
             android:id="@+id/btn_back"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_arrow_back"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back" />
+            android:contentDescription="Back"
+            android:padding="4dp"
+            android:src="@drawable/ic_arrow_back" />
 
-        <TextView
-            android:id="@+id/tv_quiz_title"
+        <!-- Title Section -->
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:text="Food Vocabulary"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginStart="16dp"
-            android:textColor="#222222" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_quiz_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📚 Food Vocabulary"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_quiz_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔄 Mixed Mode"
+                android:textColor="@color/text_hint_color"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    <!-- Question progress -->
-    <TextView
-        android:id="@+id/tv_question_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Question 1 of 5"
-        android:textSize="15sp"
-        android:textColor="#444"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"/>
-
-    <!-- Progress bar -->
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleHorizontal"
+    <!-- Main Content - Simple Sections -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:max="100"
-        android:progress="0"
-        android:progressDrawable="@drawable/progress_bar_quiz"
-        android:layout_marginBottom="24dp"
-        android:layout_marginTop="0dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:padding="16dp">
 
-    <!-- Card -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:orientation="vertical"
-        android:background="@drawable/bg_card_quiz"
-        android:elevation="4dp"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:id="@+id/tv_translate_direction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Translate to English"
-            android:textSize="16sp"
-            android:textColor="#666"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/tv_question_word"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="cơm"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            android:textColor="#222"
-            android:layout_marginBottom="24dp"
-            android:gravity="center"/>
-
-        <EditText
-            android:id="@+id/et_answer"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:hint="Type your answer..."
-            android:background="@drawable/bg_edittext_quiz"
-            android:padding="16dp"
-            android:textSize="18sp"
-            android:layout_marginBottom="20dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_submit"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Submit Answer"
-            android:textStyle="bold"
-            android:textColor="#fff"
-            android:background="@drawable/bg_btn_quiz"/>
-    </LinearLayout>
+            <!-- Progress Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/note_section_background"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="12dp">
 
-    <!-- Score -->
-    <TextView
-        android:id="@+id/tv_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Score: 0/0"
-        android:textSize="16sp"
-        android:textColor="#444"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"/>
+                <!-- Progress Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/note_section_header"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📊 Tiến độ bài kiểm tra"
+                        android:textColor="@color/note_text_title"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Progress Info -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_question_progress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="📝 Câu hỏi 1/5"
+                        android:textColor="@color/note_text_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🏆 0/0"
+                        android:textColor="@color/note_text_secondary"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <!-- Progress Bar -->
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:max="100"
+                    android:progress="20"
+                    android:progressDrawable="@drawable/progress_bar_quiz" />
+
+                <TextView
+                    android:id="@+id/tv_progress_percentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="20% hoàn thành"
+                    android:textColor="@color/note_text_hint"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <!-- Question Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/note_section_background"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp">
+
+                <!-- Question Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/note_section_header"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_translate_direction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌍 Translate to English"
+                        android:textColor="@color/note_text_title"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Question Word -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/note_field_background"
+                    android:gravity="center"
+                    android:paddingStart="20dp"
+                    android:paddingTop="24dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/tv_question_word"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="cơm"
+                        android:textColor="@color/note_text_primary"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Answer Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="✏️ Câu trả lời của bạn:"
+                    android:textColor="@color/note_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/note_edittext_background"
+                    android:hint="Nhập câu trả lời..."
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:textColor="@color/note_text_primary"
+                    android:textColorHint="@color/note_text_hint"
+                    android:textSize="16sp" />
+
+                <!-- Submit Button -->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/note_button_style"
+                    android:elevation="0dp"
+                    android:stateListAnimator="@null"
+                    android:text="🚀 Trả lời"
+                    android:textAllCaps="false"
+                    android:textColor="@color/note_text_button"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>

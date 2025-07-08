@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.learningvocabularyapp.R;
 import com.example.learningvocabularyapp.database.vocabularyAppDatabase;
+import com.example.learningvocabularyapp.manager.ThemeManager;
 import com.example.learningvocabularyapp.model.Project;
 
 import java.io.ByteArrayOutputStream;
@@ -31,9 +32,9 @@ import java.util.List;
 
 public class CreateProjectActivity extends AppCompatActivity {
 
-    private EditText projectName,language;;
+    private EditText projectName,language;
     private ImageView projectImage, correctImage, wrongImage;
-    private Button btnSave;
+    private ImageView btnSave; // ✅ Đổi từ Button thành ImageView
     private byte[] projectImageBytes = null;
     private byte[] correctImageBytes = null;
     private byte[] wrongImageBytes = null;
@@ -149,12 +150,15 @@ public class CreateProjectActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        // Apply theme before setContentView
+        ThemeManager.applyThemeFromPreferences(this);
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_project);
 
         projectName = findViewById(R.id.et_project_name);
         language = findViewById(R.id.et_target_language);
-        btnSave = findViewById(R.id.btn_create_project);
+        btnSave = findViewById(R.id.btn_save); // Cập nhật ID
 
         projectImage = findViewById(R.id.iv_cover_preview);
         correctImage = findViewById(R.id.iv_correct_preview);
@@ -186,7 +190,7 @@ public class CreateProjectActivity extends AppCompatActivity {
             launchCamera(ImageType.WRONG_IMAGE);
         });
 
-        TextView title = findViewById(R.id.tv_create_project_title); // id của TextView tiêu đề
+        TextView title = findViewById(R.id.tv_create_project_title);
 
         Intent intent = getIntent();
         isEditMode = intent.getBooleanExtra("IS_EDIT", false);
@@ -194,7 +198,7 @@ public class CreateProjectActivity extends AppCompatActivity {
             editingProjectId = intent.getIntExtra("PROJECT_ID", -1);
             if (title != null) title.setText("Update Project");
 
-            // Lấy dữ liệu từ database
+            // Load existing project data
             appDatabase = new vocabularyAppDatabase(this);
             Project project = appDatabase.getProjectById(editingProjectId);
             if (project != null) {
@@ -224,9 +228,9 @@ public class CreateProjectActivity extends AppCompatActivity {
                     wrongImageBytes = wrongImgBytes;
                 }
             }
-            btnSave.setText("Update Project");
         }
 
+        // Setup click listeners
         btnSave.setOnClickListener(v -> {
             if (isEditMode) {
                 updateProjectInDatabase();
@@ -235,7 +239,8 @@ public class CreateProjectActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.btn_cancel).setOnClickListener(v -> finish());
+        // Back button click (thay thế chức năng cancel)
+        findViewById(R.id.btn_back).setOnClickListener(v -> finish());
     }
 
     private void saveProjectToDatabase(){
@@ -281,17 +286,17 @@ public class CreateProjectActivity extends AppCompatActivity {
         switch (imageType){
             case PROJECT_IMAGE:
                 projectImageBytes = imageData;
-                projectImage.setVisibility(ImageView.VISIBLE);
+                projectImage.setVisibility(ImageView.VISIBLE); // Hiện khi có ảnh
                 projectImage.setImageBitmap(bitmap);
                 break;
             case CORRECT_IMAGE:
                 correctImageBytes = imageData;
-                correctImage.setVisibility(ImageView.VISIBLE);
+                correctImage.setVisibility(ImageView.VISIBLE); // Hiện khi có ảnh
                 correctImage.setImageBitmap(bitmap);
                 break;
             case WRONG_IMAGE:
                 wrongImageBytes = imageData;
-                wrongImage.setVisibility(ImageView.VISIBLE);
+                wrongImage.setVisibility(ImageView.VISIBLE); // Hiện khi có ảnh
                 wrongImage.setImageBitmap(bitmap);
                 break;
         }

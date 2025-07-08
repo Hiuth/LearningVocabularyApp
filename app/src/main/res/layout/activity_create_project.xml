@@ -1,328 +1,445 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F7FA">
+    android:background="@color/background_color"
+    android:elevation="0dp"
+    android:tag="background">
 
-    <!-- Header -->
+    <!-- Header with navigation and save -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
+        android:background="@drawable/note_header_background"
         android:gravity="center_vertical"
-        android:background="#FFFFFF">
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingTop="40dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:tag="header">
 
+        <!-- Back button -->
         <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="Back" />
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:padding="4dp"
+            android:src="@drawable/ic_arrow_back" />
 
+        <!-- Title -->
         <TextView
             android:id="@+id/tv_create_project_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Project"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:text="✏️ Cùng tạo chủ đề mới!"
+            android:textColor="@color/text_color"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
+            android:textStyle="bold" />
+
+        <!-- Save button -->
+        <ImageView
+            android:id="@+id/btn_save"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Save"
+            android:padding="4dp"
+            android:src="@drawable/ic_save_selector" />
 
     </LinearLayout>
 
     <!-- Main Content -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/note_page_background"
+        android:padding="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/note_paper_background"
             android:orientation="vertical"
-            android:background="#FFFFFF"
-            android:padding="24dp"
-            android:layout_margin="8dp"
-            android:elevation="2dp">
+            android:paddingStart="25dp"
+            android:paddingTop="65dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="25dp">
 
-            <!-- Project Details Title -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Project Details"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginBottom="24dp" />
-
-            <!-- Project Name -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Project Name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginBottom="8dp" />
-
-            <EditText
-                android:id="@+id/et_project_name"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="e.g., Food Vocabulary"
-                android:textColorHint="#A0AEC0"
-                android:textColor="#000000"
-                android:background="@drawable/edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="24dp"
-                android:textSize="16sp" />
-
-            <!-- Target Language -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Target Language"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginBottom="8dp" />
-
-            <EditText
-                android:id="@+id/et_target_language"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="e.g., English, Spanish, French"
-                android:textColorHint="#A0AEC0"
-                android:textColor="#000000"
-                android:background="@drawable/edittext_background"
-                android:padding="12dp"
-                android:layout_marginBottom="24dp"
-                android:textSize="16sp" />
-
-            <!-- Cover Image -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cover Image"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginBottom="12dp" />
-
-            <!-- Cover Image Preview -->
-            <ImageView
-                android:id="@+id/iv_cover_preview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                android:background="@android:color/darker_gray"/>
-
+            <!-- ===== SECTION 1: PROJECT INFO ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/note_section_background"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_cover_camera"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Camera"
-                    android:textColor="#000000"
-                    android:background="@drawable/button_white"
-                    android:drawableStart="@drawable/ic_camera"
-                    android:drawablePadding="8dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:layout_marginEnd="8dp"
+                <!-- Section Header - Full width, centered content -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/note_section_header"
                     android:gravity="center"
-                    android:textAllCaps="false" />
+                    android:paddingStart="20dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="12dp">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_cover_gallery"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Gallery"
-                    android:textColor="#000000"
-                    android:background="@drawable/button_white"
-                    android:drawableStart="@drawable/ic_gallery"
-                    android:drawablePadding="8dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:layout_marginStart="8dp"
-                    android:gravity="center"
-                    android:textAllCaps="false" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📝 Thông tin chủ đề"
+                        android:textColor="@color/note_text_title"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Project Name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="📚 Tên chủ đề"
+                    android:textColor="@color/note_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_project_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/note_edittext_background"
+                    android:hint="ví dụ: Từ vựng về đồ ăn"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:padding="10dp"
+                    android:textColor="@color/note_text_primary"
+                    android:textColorHint="@color/note_text_hint"
+                    android:textSize="15sp" />
+
+                <!-- Target Language -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="🌍 Ngôn ngữ muốn học"
+                    android:textColor="@color/note_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_target_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:background="@drawable/note_edittext_background"
+                    android:hint="ví dụ: Tiếng Anh, Tiếng Nhật"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:padding="10dp"
+                    android:textColor="@color/note_text_primary"
+                    android:textColorHint="@color/note_text_hint"
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
-            <!-- Correct Answer Meme -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Correct Answer Meme"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginBottom="12dp" />
-
-            <!-- Correct Answer Meme Preview -->
-            <ImageView
-                android:id="@+id/iv_correct_preview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                android:background="@android:color/darker_gray"/>
-
-
+            <!-- ===== SECTION 2: COVER IMAGE ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/note_section_background"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_correct_camera"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Camera"
-                    android:textColor="#000000"
-                    android:background="@drawable/button_white"
-                    android:drawableStart="@drawable/ic_camera"
-                    android:drawablePadding="8dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:layout_marginEnd="8dp"
+                <!-- Section Header - Full width, centered content -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/note_section_header"
                     android:gravity="center"
-                    android:textAllCaps="false" />
+                    android:paddingStart="20dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="12dp">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_correct_gallery"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Gallery"
-                    android:textColor="#000000"
-                    android:background="@drawable/button_white"
-                    android:drawableStart="@drawable/ic_gallery"
-                    android:drawablePadding="8dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:layout_marginStart="8dp"
-                    android:gravity="center"
-                    android:textAllCaps="false" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🖼️ Ảnh bìa chủ đề"
+                        android:textColor="@color/note_text_title"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Cover Image Preview - Hidden by default -->
+                <ImageView
+                    android:id="@+id/iv_cover_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/note_image_border"
+                    android:contentDescription="Cover Image Preview"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <!-- Cover Image Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_cover_camera"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/note_button_style"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"
+                        android:text="📷 Chụp ảnh"
+                        android:textAllCaps="false"
+                        android:textColor="@color/note_text_button"
+                        android:textSize="14sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_cover_gallery"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/note_button_style"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"
+                        android:text="🖼️ Thư viện"
+                        android:textAllCaps="false"
+                        android:textColor="@color/note_text_button"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <!-- Wrong Answer Meme -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wrong Answer Meme"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginBottom="12dp" />
-
-            <!-- Wrong Answer Meme Preview -->
-            <ImageView
-                android:id="@+id/iv_wrong_preview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:visibility="gone"
-                android:background="@android:color/darker_gray"/>
-
+            <!-- ===== SECTION 3: MEMES ===== -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/note_section_background"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_wrong_camera"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Camera"
-                    android:textColor="#000000"
-                    android:background="@drawable/button_white"
-                    android:drawableStart="@drawable/ic_camera"
-                    android:drawablePadding="8dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:layout_marginEnd="8dp"
+                <!-- Section Header - Full width, centered content -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/note_section_header"
                     android:gravity="center"
-                    android:textAllCaps="false" />
+                    android:paddingStart="20dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="12dp">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_wrong_gallery"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:text="Gallery"
-                    android:textColor="#000000"
-                    android:background="@drawable/button_white"
-                    android:drawableStart="@drawable/ic_gallery"
-                    android:drawablePadding="8dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:layout_marginStart="8dp"
-                    android:gravity="center"
-                    android:textAllCaps="false" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="😄 Meme cho quiz"
+                        android:textColor="@color/note_text_title"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- Correct Answer Meme -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="✅ Meme khi trả lời đúng"
+                    android:textColor="@color/note_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <!-- Correct Meme Preview - Hidden by default -->
+                <ImageView
+                    android:id="@+id/iv_correct_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/note_image_border"
+                    android:contentDescription="Correct Answer Meme Preview"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <!-- Correct Answer Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_correct_camera"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/note_button_style"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"
+                        android:text="📷 Chụp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/note_text_button"
+                        android:textSize="13sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_correct_gallery"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/note_button_style"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"
+                        android:text="🖼️ Thư viện"
+                        android:textAllCaps="false"
+                        android:textColor="@color/note_text_button"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <!-- Wrong Answer Meme -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="❌ Meme khi trả lời sai"
+                    android:textColor="@color/note_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <!-- Wrong Meme Preview - Hidden by default -->
+                <ImageView
+                    android:id="@+id/iv_wrong_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/note_image_border"
+                    android:contentDescription="Wrong Answer Meme Preview"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <!-- Wrong Answer Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_wrong_camera"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/note_button_style"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"
+                        android:text="📷 Chụp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/note_text_button"
+                        android:textSize="13sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_wrong_gallery"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/note_button_style"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"
+                        android:text="🖼️ Thư viện"
+                        android:textAllCaps="false"
+                        android:textColor="@color/note_text_button"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
+
+            <!-- ===== TIPS - Outside sections ===== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="💡 Gợi ý:"
+                android:textColor="@color/note_text_title"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="6dp"
+                android:text="• Chọn ảnh bìa liên quan đến chủ đề học"
+                android:textColor="@color/note_text_secondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="6dp"
+                android:text="• Meme giúp tăng hứng thú khi học"
+                android:textColor="@color/note_text_secondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="6dp"
+                android:text="• Có thể thay đổi sau khi tạo project"
+                android:textColor="@color/note_text_secondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="• Meme sẽ hiển thị khi làm quiz"
+                android:textColor="@color/note_text_secondary"
+                android:textSize="13sp" />
 
         </LinearLayout>
 
     </ScrollView>
-
-    <!-- Bottom Buttons -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="#FFFFFF">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_cancel"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="Cancel"
-            android:textColor="#000000"
-            android:background="@drawable/button_white"
-            android:layout_marginEnd="8dp"
-            android:textSize="16sp"
-            android:textAllCaps="false" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_create_project"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="Create Project"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/button_primary"
-            android:layout_marginStart="8dp"
-            android:textSize="16sp"
-            android:textAllCaps="false" />
-
-    </LinearLayout>
 
 </LinearLayout>

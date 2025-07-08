@@ -1,20 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Note colors -->
-    <color name="note_yellow">#FFF3C4</color>
-    <color name="note_pink">#FFB3BA</color>
-    <color name="note_blue">#BAE1FF</color>
-    <color name="note_green">#BAFFC9</color>
-    <color name="note_purple">#D4C4FB</color>
-    <color name="note_orange">#FFDFBA</color>
-    <color name="note_mint">#C4FFF3</color>
-    <color name="note_coral">#FFC4C4</color>
-    <!-- Theme colors -->
-    <color name="background_color">#333333</color>
-    <color name="text_color">#FFFFFF</color>
-    <color name="icon_color">#CCCCCC</color>
-    <color name="card_background">#1E1E1E</color>
-    <color name="tab_selected_text">#42A5F5</color>
-    <color name="tab_unselected_text">#B0B0B0</color>
+    <!-- Light Mode Colors -->
+    <color name="background_color">#F5F7FA</color>
+    <color name="surface_color">#FFFFFF</color>
+    <color name="text_color">#2D3748</color>
+    <color name="text_hint_color">#A0AEC0</color>
+
+    <!-- Note Paper Colors - Light Mode (Xanh nhạt) -->
+    <color name="note_paper_main">#E5EBFF</color>        <!-- Alice blue nhạt -->
+    <color name="note_field_bg">#F0F7FF</color>          <!-- Xanh field nhạt -->
+    <color name="note_edittext_bg">#F7FAFF</color>       <!-- Xanh edittext nhạt -->
+    <color name="note_header_bg">#EDF5FF</color>
+    <color name="note_button_bg">#F7FAFF</color>         <!-- Xanh button nhạt -->
+    <color name="note_button_pressed">#E6F3FF</color>    <!-- Pressed xanh đậm hơn -->
+    
+    <!-- Text Colors - Light Mode -->
+    <color name="note_text_primary">#2D3748</color>      <!-- Text chính đậm -->
+    <color name="note_text_secondary">#4A5568</color>    <!-- Text phụ -->
+    <color name="note_text_hint">#9CA3AF</color>         <!-- Hint text -->
+    <color name="note_text_button">#374151</color>       <!-- Text trên button -->
+    <color name="note_text_title">#1F2937</color>        <!-- Title đậm nhất -->
+    
+    <!-- Border Colors - Light Mode (Xanh) -->
+    <color name="note_border_main">#87CEEB</color>       <!-- Sky blue border -->
+    <color name="note_border_subtle">#D6E8FF</color>     <!-- Border header đậm hơn -->
+    <color name="note_shadow">#D1E7FF</color>            <!-- Shadow xanh nhạt -->
+    <color name="note_gradient">#D0E7FF</color>
+    <color name="note_hole_shadow">#B3D9FF</color>       <!-- Hole shadow riêng -->
+
+    <!-- Other colors -->
+    <color name="button_pressed">#F7FAFF</color>
+    <color name="button_bg">#F7FAFF</color>
+    <color name="tab_selected_text">#4A90E2</color>
+    <color name="tab_unselected_text">#666666</color>
+    
+    <!-- Note margin and lines -->
+    <color name="note_margin_line">#FF6B85</color>       <!-- Hồng nhẹ -->
+    <color name="note_ruled_line">#D1E7FF</color>        <!-- Lines xanh nhạt -->
+
+    <!-- Other existing colors... -->
+    <color name="note_section_pressed">#E6F3FF</color>
+    <color name="note_border_light">#E0F0FF</color>
+    <color name="note_border_medium">#D1E7FF</color>
+    <color name="header_background">#ffffff</color>
+    <color name="header_line">#CBD5E0</color>
     <color name="tab_selected_underline">#42A5F5</color>
+    <color name="note_yellow">#FFF0B3</color>
+    <color name="note_pink">#FFA1AC</color>
+    <color name="note_blue">#A1D6FF</color>
+    <color name="note_green">#9FFFB3</color>
+    <color name="note_purple">#B99EFF</color>
+    <color name="note_orange">#FFD4A0</color>
+    <color name="note_mint">#B7FFEF</color>
+    <color name="note_coral">#FFB7B7</color>
+    <color name="icon_color">#000000</color>
+    <color name="card_background">#1E1E1E</color>
+    <color name="pattern_color">#1A4A90E2</color>
+    <color name="pattern_background">#F8FBFF</color>
+
+    <!-- Quiz Complete specific colors -->
+    <color name="quiz_complete_bg">#F5F7FA</color>        <!-- background_color -->
+    <color name="quiz_card_bg">#E5EBFF</color>            <!-- note_paper_main -->
+    <color name="quiz_icon_bg">#87CEEB</color>            <!-- note_accent_color -->
+
+    <!-- Trophy and celebration colors -->
+    <color name="quiz_trophy_color">#FFDFBA</color>       <!-- note_orange -->
+    <color name="quiz_celebration_color">#FFF3C4</color>  <!-- note_yellow -->
+
+    <!-- Score text colors -->
+    <color name="quiz_score_excellent">#BAFFC9</color>    <!-- note_green -->
+    <color name="quiz_score_good">#BAE1FF</color>         <!-- note_blue -->
+    <color name="quiz_score_average">#FFDFBA</color>      <!-- note_orange -->
+    <color name="quiz_score_poor">#FFC4C4</color>         <!-- note_coral -->
+
+    <!-- Add missing note_accent_color if not exists -->
+    <color name="note_accent_color">#87CEEB</color>       <!-- Sky blue accent -->
+
+    <!-- Quiz Complete Background Colors - Light Mode -->
+    <color name="quiz_background_start">#F8FBFF</color>
+    <color name="quiz_background_center">#E5EBFF</color>
+    <color name="quiz_background_end">#D1E7FF</color>
+
+    <!-- Quiz Card Colors - Light Mode với viền rõ ràng -->
+    <color name="quiz_card_start">#FFFFFF</color>
+    <color name="quiz_card_center">#FAFAFA</color>
+    <color name="quiz_card_end">#F0F7FF</color>
+    <color name="quiz_card_border">#87CEEB</color>        <!-- Sky blue border rõ ràng -->
+    <color name="quiz_card_shadow">#30000000</color>      <!-- Shadow cho depth -->
+
+    <!-- Quiz Button Colors - Light Mode -->
+    <color name="quiz_button_start">#E6F3FF</color>
+    <color name="quiz_button_center">#D1E7FF</color>
+    <color name="quiz_button_end">#BBDEFB</color>
+    <color name="quiz_button_border">#87CEEB</color>
+
+    <!-- Quiz Divider Colors - Light Mode -->
+    <color name="quiz_divider_center">#87CEEB</color>
+
+    <!-- Quiz Score Circle Colors - Light Mode -->
+    <color name="quiz_circle_start">#87CEEB</color>
+    <color name="quiz_circle_end">#4A90E2</color>
+
+    <!-- Alternative Theme Colors - Ocean Light -->
+    <color name="quiz_ocean_bg_start">#E3F2FD</color>
+    <color name="quiz_ocean_bg_center">#BBDEFB</color>
+    <color name="quiz_ocean_bg_end">#90CAF9</color>
+
+    <!-- Alternative Theme Colors - Sunset Light -->
+    <color name="quiz_sunset_bg_start">#FFF8E1</color>
+    <color name="quiz_sunset_bg_center">#FFE0B2</color>
+    <color name="quiz_sunset_bg_end">#FFCC80</color>
 </resources>

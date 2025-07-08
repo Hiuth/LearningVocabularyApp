@@ -96,15 +96,34 @@ public class SearchManager {
         isSearchViewVisible = false;
         searchView.setVisibility(View.GONE);
         buttonSearch.setVisibility(View.VISIBLE);
+        searchView.setQuery("", false);
+        hideKeyboard();
         
-        // Clear search if no query
-        if (currentSearchQuery.isEmpty()) {
-            searchView.setQuery("", false);
-            if (searchListener != null) {
-                searchListener.onSearchQueryChanged("");
-            }
+        if (searchListener != null) {
+            searchListener.onSearchStateChanged(false);
         }
+    }
+    
+    public void hideSearchViewOnly() {
+        isSearchViewVisible = false;
+        searchView.setVisibility(View.GONE);
+        buttonSearch.setVisibility(View.VISIBLE);
+        hideKeyboard();
         
+        // Không clear search query
+        // Không call onSearchStateChanged để không trigger refresh
+    }
+    
+    public void hideSearchViewIfVisible() {
+        if (isSearchViewVisible) {
+            hideSearchView();
+        }
+    }
+
+    public void hideSearchViewWithoutClearingQuery() {
+        isSearchViewVisible = false;
+        searchView.setVisibility(View.GONE);
+        buttonSearch.setVisibility(View.VISIBLE);
         hideKeyboard();
         
         if (searchListener != null) {

@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.learningvocabularyapp.R;
 import com.example.learningvocabularyapp.activity.EditVocabularyActivity;
 import com.example.learningvocabularyapp.activity.CreateProjectActivity;
-import com.example.learningvocabularyapp.activity.QuizActivity;
+import com.example.learningvocabularyapp.activity.QuizModeActivity;
 import com.example.learningvocabularyapp.database.vocabularyAppDatabase;
 import com.example.learningvocabularyapp.model.Project;
 import com.example.learningvocabularyapp.model.Vocabulary;
@@ -147,56 +147,94 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
     }
 
     private void showOptionsDialog(Project project, int position) {
+        // Tạo custom dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(project.getProjectName());
-
-        String[] options = {"Edit Project", "Delete Project", "Start Quiz"};
-
-        builder.setItems(options, (dialog, which) -> {
-            switch (which) {
-                case 0: // Edit Project
-                    Intent editIntent = new Intent(context, CreateProjectActivity.class);
-                    editIntent.putExtra("IS_EDIT", true);
-                    editIntent.putExtra("PROJECT_ID", project.getId());
-                    context.startActivity(editIntent);
-                    break;
-
-                case 1: // Delete Project
-                    showDeleteConfirmation(project, position);
-                    break;
-
-                case 2: // Start Quiz
-                    // Check if project has vocabulary first
-                    List<Vocabulary> vocabularies = db.getVocabularyByProjectId(project.getId());
-                    if (vocabularies == null || vocabularies.isEmpty()) {
-                        Toast.makeText(context, "Project has no vocabulary words for quiz", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Intent quizIntent = new Intent(context, QuizActivity.class);
-                        quizIntent.putExtra("PROJECT_ID", project.getId());
-                        quizIntent.putExtra("PROJECT_NAME", project.getProjectName());
-                        context.startActivity(quizIntent);
-                    }
-                    break;
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_project_options, null);
+        builder.setView(dialogView);
+        
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        
+        // Set project name in title
+        TextView dialogTitle = dialogView.findViewById(R.id.dialog_title);
+        dialogTitle.setText("📚 " + project.getProjectName());
+        
+        // Edit option
+        dialogView.findViewById(R.id.option_edit).setOnClickListener(v -> {
+            dialog.dismiss();
+            Intent editIntent = new Intent(context, CreateProjectActivity.class);
+            editIntent.putExtra("IS_EDIT", true);
+            editIntent.putExtra("PROJECT_ID", project.getId());
+            context.startActivity(editIntent);
+        });
+        
+        // Quiz option
+        dialogView.findViewById(R.id.option_quiz).setOnClickListener(v -> {
+            dialog.dismiss();
+            // Kiểm tra xem dự án có từ vựng không
+            List<Vocabulary> vocabularies = db.getVocabularyByProjectId(project.getId());
+            if (vocabularies == null || vocabularies.isEmpty()) {
+                Toast.makeText(context, "❌ Dự án chưa có từ vựng để kiểm tra", Toast.LENGTH_SHORT).show();
+            } else {
+                // Chuyển đến QuizModeActivity thay vì QuizActivity
+                Intent quizModeIntent = new Intent(context, QuizModeActivity.class);
+                quizModeIntent.putExtra("PROJECT_ID", project.getId());
+                quizModeIntent.putExtra("PROJECT_NAME", project.getProjectName());
+                quizModeIntent.putExtra("LEARNING_LANGUAGE", project.getLearningLanguage());
+                context.startActivity(quizModeIntent);
             }
         });
-
-        builder.show();
+        
+        // Delete option
+        dialogView.findViewById(R.id.option_delete).setOnClickListener(v -> {
+            dialog.dismiss();
+            showDeleteConfirmation(project, position);
+        });
+        
+        // Cancel button
+        dialogView.findViewById(R.id.btn_cancel).setOnClickListener(v -> dialog.dismiss());
+        
+        dialog.show();
     }
 
     private void showDeleteConfirmation(Project project, int position) {
+        // Tạo custom delete confirmation dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Delete Project");
-        builder.setMessage("Are you sure you want to delete \"" + project.getProjectName() + "\"?");
-
-        builder.setPositiveButton("Delete", (dialog, which) -> {
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_delete_confirmation, null);
+        builder.setView(dialogView);
+        
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        
+        // Set project name
+        TextView projectNameView = dialogView.findViewById(R.id.project_name_to_delete);
+        projectNameView.setText("\"" + project.getProjectName() + "\"");
+        
+        // Cancel button
+        dialogView.findViewById(R.id.btn_cancel_delete).setOnClickListener(v -> dialog.dismiss());
+        
+        // Confirm delete button
+        dialogView.findViewById(R.id.btn_confirm_delete).setOnClickListener(v -> {
+            dialog.dismiss();
+            
+            // Xóa tất cả từ vựng trước
+            List<Vocabulary> vocabularies = db.getVocabularyByProjectId(project.getId());
+            if (vocabularies != null) {
+                for (Vocabulary vocab : vocabularies) {
+                    db.deleteVocabulary(vocab.getId());
+                }
+            }
+            
+            // Xóa dự án
             db.deleteProject(project.getId());
             projectList.remove(position);
             notifyItemRemoved(position);
-            Toast.makeText(context, "Project deleted", Toast.LENGTH_SHORT).show();
+            notifyItemRangeChanged(position, projectList.size());
+            
+            Toast.makeText(context, "✅ Đã xóa dự án \"" + project.getProjectName() + "\"", Toast.LENGTH_SHORT).show();
         });
-
-        builder.setNegativeButton("Cancel", null);
-        builder.show();
+        
+        dialog.show();
     }
 
     @Override

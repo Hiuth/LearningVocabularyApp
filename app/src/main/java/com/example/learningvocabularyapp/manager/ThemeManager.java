@@ -1,5 +1,6 @@
 package com.example.learningvocabularyapp.manager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.ImageButton;
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.learningvocabularyapp.R;
+import com.example.learningvocabularyapp.utils.ThemeUtils;
 
 public class ThemeManager {
     
@@ -17,10 +19,20 @@ public class ThemeManager {
     private Context context;
     private SharedPreferences sharedPreferences;
     private ImageButton buttonToggleTheme;
+    private ThemeChangeListener themeChangeListener;
+    
+    public interface ThemeChangeListener {
+        void onThemeChanged(boolean isDarkMode);
+    }
     
     public ThemeManager(Context context, ImageButton buttonToggleTheme) {
+        this(context, buttonToggleTheme, null);
+    }
+    
+    public ThemeManager(Context context, ImageButton buttonToggleTheme, ThemeChangeListener listener) {
         this.context = context;
         this.buttonToggleTheme = buttonToggleTheme;
+        this.themeChangeListener = listener;
         this.sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         setupThemeToggle();
     }
@@ -29,15 +41,6 @@ public class ThemeManager {
     public static void applyThemeFromPreferences(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         boolean isDarkMode = prefs.getBoolean(KEY_DARK_MODE, false);
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-    }
-    
-    public void applyTheme() {
-        boolean isDarkMode = sharedPreferences.getBoolean(KEY_DARK_MODE, false);
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
@@ -62,12 +65,17 @@ public class ThemeManager {
         editor.putBoolean(KEY_DARK_MODE, newDarkMode);
         editor.apply();
         
-        // Apply theme
-        applyTheme();
+        // Apply theme dynamically without recreate
+        if (context instanceof Activity) {
+            ThemeUtils.applyThemeToActivity((Activity) context, newDarkMode);
+        }
         
-        // Recreate activity to apply theme
-        if (context instanceof AppCompatActivity) {
-            ((AppCompatActivity) context).recreate();
+        // Update icon
+        updateThemeIcon();
+        
+        // Notify listener
+        if (themeChangeListener != null) {
+            themeChangeListener.onThemeChanged(newDarkMode);
         }
     }
     

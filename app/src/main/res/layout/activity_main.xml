@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="left"
+    android:tag="background"
+    android:background="@color/background_color"
     app:layout_anchorGravity="left">
 
     <!-- Gộp linearLayout2 và linearLayout3 thành một LinearLayout duy nhất -->
@@ -18,6 +20,7 @@
         android:fadingEdgeLength="3dp"
         android:orientation="vertical"
         android:translationZ="10dp"
+        android:tag="header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

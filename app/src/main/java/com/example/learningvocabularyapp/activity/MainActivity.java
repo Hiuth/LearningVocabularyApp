@@ -2,6 +2,8 @@ package com.example.learningvocabularyapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -82,7 +84,18 @@ public class MainActivity extends AppCompatActivity {
         
         // Initialize managers
         searchManager = new SearchManager(this, searchView, buttonSearch);
-        themeManager = new ThemeManager(this, buttonToggleTheme);
+        themeManager = new ThemeManager(this, buttonToggleTheme, new ThemeManager.ThemeChangeListener() {
+            @Override
+            public void onThemeChanged(boolean isDarkMode) {
+                // Refresh tab styles after theme change
+                if (languageTabManager != null) {
+                    languageTabManager.updateAllTabStyles();
+                }
+                
+                // Update any other UI elements that need manual refresh
+                updateUIForTheme(isDarkMode);
+            }
+        });
         languageTabManager = new LanguageTabManager(this, languageTabsContainer);
         projectDisplayManager = new ProjectDisplayManager(this, recyclerView, textViewEmpty);
 
@@ -131,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (searchManager != null && searchManager.isSearchViewVisible()) {
+            // Back button vẫn clear search như cũ
             searchManager.hideSearchView();
             searchManager.clearSearch();
         } else {
@@ -200,5 +214,51 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(() -> {
             loadProjectList();
         });
+    }
+
+    private void updateUIForTheme(boolean isDarkMode) {
+        // Update any specific UI elements that need manual theme updates
+        // For example, update RecyclerView adapter if needed
+        if (projectDisplayManager != null && projectDisplayManager.getProjectAdapter() != null) {
+            projectDisplayManager.getProjectAdapter().notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            if (searchManager != null && searchManager.isSearchViewVisible()) {
+                // Lấy vị trí touch
+                float x = ev.getRawX();
+                float y = ev.getRawY();
+                
+                // Kiểm tra xem có touch vào search view không
+                if (!isTouchInsideView(searchView, x, y) && 
+                    !isTouchInsideView(buttonSearch, x, y) &&
+                    !isTouchInsideView(languageTabsContainer, x, y) &&
+                    !isTouchInsideView(recyclerView, x, y) &&
+                    !isTouchInsideView(createProjectButton, x, y)) {
+                    
+                    // Touch vào vùng trống - chỉ ẩn search, không clear
+                    searchManager.hideSearchViewOnly();
+                    return true; // Consume the touch event
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private boolean isTouchInsideView(View view, float x, float y) {
+        if (view == null || view.getVisibility() != View.VISIBLE) {
+            return false;
+        }
+        
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        
+        return x >= location[0] && 
+               x <= location[0] + view.getWidth() && 
+               y >= location[1] && 
+               y <= location[1] + view.getHeight();
     }
 }
