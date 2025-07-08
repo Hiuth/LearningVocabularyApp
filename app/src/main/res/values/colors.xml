@@ -48,11 +48,11 @@
     <color name="note_yellow">#FFF0B3</color>
     <color name="note_pink">#FFA1AC</color>
     <color name="note_blue">#A1D6FF</color>
-    <color name="note_green">#9FFFB3</color>
-    <color name="note_purple">#B99EFF</color>
+    <color name="note_green">#B3FFC3</color>
+    <color name="note_purple">#C7B0FF</color>
     <color name="note_orange">#FFD4A0</color>
-    <color name="note_mint">#B7FFEF</color>
-    <color name="note_coral">#FFB7B7</color>
+    <color name="note_mint">#BFFFF0</color>
+    <color name="note_coral">#FFC2C2</color>
     <color name="icon_color">#000000</color>
     <color name="card_background">#1E1E1E</color>
     <color name="pattern_color">#1A4A90E2</color>
