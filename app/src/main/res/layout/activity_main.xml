@@ -26,6 +26,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- Phần header với logo và buttons -->
+
+        <!-- Phần tabs -->
         <LinearLayout
             android:id="@+id/topSection"
             android:layout_width="match_parent"
@@ -33,7 +35,7 @@
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingTop="28dp"
+            android:paddingTop="42dp"
             android:paddingBottom="8dp">
 
             <ImageView
@@ -98,7 +100,6 @@
 
         </LinearLayout>
 
-        <!-- Phần tabs -->
         <LinearLayout
             android:id="@+id/tabsSection"
             android:layout_width="match_parent"

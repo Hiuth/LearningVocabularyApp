@@ -278,7 +278,7 @@ public class CreateProjectActivity extends AppCompatActivity {
         byte[] imageData = stream.toByteArray();
 
         // Giới hạn dung lượng ảnh tối đa 10MB
-        if (imageData.length > 10 * 1024 * 1024) {
+        if (imageData.length > 10 * 1024 * 1024) {  
             Toast.makeText(this, "Ảnh quá lớn! Vui lòng chọn ảnh nhỏ hơn 10MB.", Toast.LENGTH_SHORT).show();
             return;
         }
