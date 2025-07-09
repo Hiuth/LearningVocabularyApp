@@ -1,50 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Dark Mode Colors - Background tối để paper nổi bật -->
-    <color name="background_color">#1A1A1A</color>       <!-- Nền tối -->
-    <color name="surface_color">#2D2D2D</color>          <!-- Surface -->
-    <color name="text_color">#F7FAFC</color>             <!-- Text header -->
-    <color name="text_hint_color">#9CA3AF</color>        <!-- Hint header -->
+    <!-- Dark Mode Colors - Background đậm hơn -->
+    <color name="background_color">#0C1016</color>       <!-- Đậm hơn -->
+    <color name="surface_color">#151B23</color>          <!-- Đậm hơn -->
+    <color name="text_color">#FFFFFF</color>             <!-- Pure white -->
+    <color name="text_hint_color">#B3B3B3</color>        <!-- Light gray -->
 
-    <!-- Note Paper Colors - Phần tử càng nhỏ càng nhạt (giảm trắng sáng) -->
-    <color name="note_paper_main">#BAE1FF</color>        <!-- Paper nền nhạt -->
-    <color name="note_field_bg">#E0EDFF</color>          <!-- Field nhạt hơn (giảm trắng) -->
-    <color name="note_header_bg">#D1E4FD</color>         <!-- Header đậm hơn field -->
-    <color name="note_edittext_bg">#F1F6FF</color>       <!-- EditText nhạt vừa (giảm trắng) -->
-    <color name="note_button_bg">#F1F6FF</color>         <!-- Button nhạt (giảm trắng) -->
-    <color name="note_button_pressed">#F3F8FF</color>    <!-- Pressed nhạt nhẹ (giảm trắng) -->
+    <!-- Note Paper Colors - Backgrounds đậm hơn -->
+    <color name="note_paper_main">#1F2937</color>        <!-- Đậm hơn -->
+    <color name="note_field_bg">#2D3748</color>          <!-- Đậm hơn -->
+    <color name="note_header_bg">#111827</color>         <!-- Đậm hơn -->
+    <color name="note_edittext_bg">#374151</color>       <!-- Đậm hơn -->
+    <color name="note_button_bg">#374151</color>         <!-- Đậm hơn -->
+    <color name="note_button_pressed">#4A5568</color>    <!-- Đậm hơn -->
 
-    <!-- Text Colors - Đen để đọc rõ trên nền xanh nhạt -->
-    <color name="note_text_primary">#1F2937</color>      <!-- Text đen -->
-    <color name="note_text_secondary">#4B5563</color>    <!-- Text xám -->
-    <color name="note_text_hint">#6B7280</color>         <!-- Hint xám -->
-    <color name="note_text_button">#1F2937</color>       <!-- Button text đen (nền nhạt) -->
-    <color name="note_text_title">#0F172A</color>        <!-- Title đen đậm -->
+    <!-- Text Colors - High contrast -->
+    <color name="note_text_primary">#FFFFFF</color>      <!-- White text -->
+    <color name="note_text_secondary">#E0E0E0</color>    <!-- Light gray -->
+    <color name="note_text_hint">#999999</color>         <!-- Medium gray -->
+    <color name="note_text_button">#FFFFFF</color>       <!-- White button text -->
+    <color name="note_text_title">#FFFFFF</color>        <!-- White title -->
 
-    <!-- Border Colors - Từ nhạt đến rất nhạt (giảm trắng) -->
-    <color name="note_border_main">#BAE1FF</color>       <!-- Border nhạt -->
-    <color name="note_border_subtle">#D6E8FF</color>     <!-- Border rất nhạt (giảm trắng) -->
-    <color name="note_shadow">#EDF4FF</color>            <!-- Shadow nhạt (giảm trắng) -->
-    <color name="note_gradient">#BED7FF</color>          <!-- Gradient nhạt (giảm trắng) -->
-    <color name="note_hole_shadow">#A3D2FF</color>       <!-- Hole shadow đậm hơn -->
+    <!-- Border Colors - Lines giảm sáng -->
+    <color name="note_border_main">#1976D2</color>       <!-- Blue đậm hơn -->
+    <color name="note_border_subtle">#E0E0E0</color>     <!-- Gray nhạt thay white -->
+    <color name="note_shadow">#111827</color>            <!-- Đậm hơn -->
+    <color name="note_gradient">#00182F</color>          <!-- Blue đậm hơn -->
+    <color name="note_hole_shadow">#E0E0E0</color>       <!-- Gray nhạt thay white -->
 
-    <!-- Other colors -->
-    <color name="button_pressed">#93B4FF</color>         <!-- Primary button -->
-    <color name="button_bg">#E0F2FF</color>
-    <color name="tab_selected_text">#4A90E2</color>      <!-- Tab selected -->
-    <color name="tab_unselected_text">#A0AEC0</color>    <!-- Tab unselected -->
+    <!-- Simple colors - Backgrounds đậm hơn -->
+    <color name="button_pressed">#1976D2</color>         <!-- Blue đậm hơn -->
+    <color name="button_bg">#374151</color>              <!-- Đậm hơn -->
+    <color name="tab_selected_text">#1976D2</color>      <!-- Blue đậm hơn -->
+    <color name="tab_unselected_text">#999999</color>    <!-- Gray -->
 
-    <!-- Note margin and lines - Subtle -->
-    <color name="note_margin_line">#F87171</color>       <!-- Đỏ nhẹ -->
-    <color name="note_ruled_line">#C1DEFF</color>        <!-- Lines xanh nhạt (giảm trắng) -->
+    <!-- Lines - Giảm sáng -->
+    <color name="note_margin_line">#D32F2F</color>       <!-- Red đậm hơn -->
+    <color name="note_ruled_line">#E0E0E0</color>        <!-- Gray nhạt thay white -->
 
-    <!-- Dark Theme Colors -->
-    <color name="header_background">#111827</color>      <!-- Header tối -->
-    <color name="header_line">#111827</color>
-    <color name="pattern_background">#1A1A1A</color>     <!-- Pattern tối -->
-    <color name="icon_color">#ffffff</color>
+    <!-- System colors - Background đậm hơn -->
+    <color name="header_background">#111827</color>      <!-- Đậm hơn -->
+    <color name="header_line">#000000</color>            <!-- Blue đậm hơn -->
+    <color name="pattern_background">#0C1016</color>     <!-- Đậm hơn -->
+    <color name="icon_color">#FFFFFF</color>             <!-- White icons -->
 
-    <!-- Note accent colors - Thêm màu thiếu -->
+    <!-- Other lines - Giảm sáng -->
+    <color name="note_border_light">#E0E0E0</color>      <!-- Gray nhạt -->
+    <color name="note_border_medium">#1976D2</color>     <!-- Blue đậm hơn -->
+    <color name="tab_selected_underline">#1976D2</color> <!-- Blue đậm hơn -->
+
+    <!-- Card colors - Background đậm hơn -->
+    <color name="card_background">#1F2937</color>        <!-- Đậm hơn -->
+    <color name="pattern_color">#1976D2</color>          <!-- Blue đậm hơn -->
+    <color name="note_accent_color">#1976D2</color>      <!-- Blue đậm hơn -->
+
+    <!-- GIỮ NGUYÊN - Note accent colors -->
     <color name="note_yellow">#FFF3C4</color>
     <color name="note_pink">#FFB3BA</color>
     <color name="note_blue">#BAE1FF</color>
@@ -53,67 +63,40 @@
     <color name="note_orange">#FFDFBA</color>
     <color name="note_mint">#C4FFF3</color>
     <color name="note_coral">#FFC4C4</color>
-    
-    <!-- Card và pattern colors - Thêm màu thiếu -->
-    <color name="card_background">#2D3748</color>        <!-- Card tối phù hợp -->
-    <color name="pattern_color">#60A5FA</color>          <!-- Pattern xanh sáng -->
 
-    <!-- Quiz Complete specific colors - Thêm màu thiếu phù hợp dark theme -->
-    <color name="quiz_complete_bg">#1A1A1A</color>       <!-- Giống background_color -->
-    <color name="quiz_card_bg">#D3D3D3</color>           <!-- Tối hơn note_paper_main -->
-    <color name="quiz_icon_bg">#60A5FA</color>           <!-- Blue accent -->
-
-    <!-- Trophy and celebration colors - Thêm màu thiếu -->
-    <color name="quiz_trophy_color">#FBBF24</color>      <!-- Gold trophy -->
-    <color name="quiz_celebration_color">#FDE047</color> <!-- Celebration yellow -->
-
-    <!-- Score text colors - Thêm màu thiếu -->
-    <color name="quiz_score_excellent">#34D399</color>   <!-- Green excellent -->
-    <color name="quiz_score_good">#60A5FA</color>        <!-- Blue good -->
-    <color name="quiz_score_average">#FB923C</color>     <!-- Orange average -->
-    <color name="quiz_score_poor">#FB7185</color>        <!-- Coral poor -->
-
-    <!-- Note accent color - Thêm màu thiếu -->
-    <color name="note_accent_color">#60A5FA</color>      <!-- Blue accent -->
-
-    <!-- Quiz Complete Background Colors - Thêm màu thiếu cho gradient -->
+    <!-- GIỮ NGUYÊN - Quiz colors -->
+    <color name="quiz_complete_bg">#1A1A1A</color>
+    <color name="quiz_card_bg">#D3D3D3</color>
+    <color name="quiz_icon_bg">#60A5FA</color>
+    <color name="quiz_trophy_color">#FBBF24</color>
+    <color name="quiz_celebration_color">#FDE047</color>
+    <color name="quiz_score_excellent">#34D399</color>
+    <color name="quiz_score_good">#60A5FA</color>
+    <color name="quiz_score_average">#FB923C</color>
+    <color name="quiz_score_poor">#FB7185</color>
     <color name="quiz_background_start">#1A1A1A</color>
     <color name="quiz_background_center">#2D3748</color>
     <color name="quiz_background_end">#374151</color>
-
-    <!-- Quiz Card Colors - Thêm màu thiếu cho gradient -->
     <color name="quiz_card_start">#374151</color>
     <color name="quiz_card_center">#2D3748</color>
     <color name="quiz_card_end">#1F2937</color>
-    <color name="quiz_card_border">#60A5FA</color>       <!-- Blue accent border -->
-    <color name="quiz_card_shadow">#40000000</color>     <!-- Dark shadow -->
-
-    <!-- Quiz Button Colors - Thêm màu thiếu cho gradient -->
+    <color name="quiz_card_border">#60A5FA</color>
+    <color name="quiz_card_shadow">#40000000</color>
     <color name="quiz_button_start">#4A5568</color>
     <color name="quiz_button_center">#374151</color>
     <color name="quiz_button_end">#2D3748</color>
     <color name="quiz_button_border">#60A5FA</color>
-
-    <!-- Quiz Divider Colors - Thêm màu thiếu -->
     <color name="quiz_divider_center">#60A5FA</color>
-
-    <!-- Quiz Score Circle Colors - Thêm màu thiếu -->
     <color name="quiz_circle_start">#60A5FA</color>
     <color name="quiz_circle_end">#3B82F6</color>
-
-    <!-- Alternative Theme Colors - Thêm màu thiếu -->
     <color name="quiz_ocean_bg_start">#0C1528</color>
     <color name="quiz_ocean_bg_center">#1E293B</color>
     <color name="quiz_ocean_bg_end">#334155</color>
-
     <color name="quiz_sunset_bg_start">#1A1A1A</color>
     <color name="quiz_sunset_bg_center">#451A03</color>
     <color name="quiz_sunset_bg_end">#78350F</color>
 
-    <!-- Other missing colors - Thêm màu thiếu -->
-    <color name="note_section_pressed">#4A5568</color>
-    <color name="note_border_light">#374151</color>
-    <color name="note_border_medium">#2D3748</color>
-    <color name="tab_selected_underline">#60A5FA</color>
+    <!-- Other colors - Blue-gray theme -->
+    <color name="note_section_pressed">#2D3748</color>
 
 </resources>
