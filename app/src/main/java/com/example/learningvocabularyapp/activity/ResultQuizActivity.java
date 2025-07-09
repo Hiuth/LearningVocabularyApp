@@ -80,13 +80,21 @@ public class ResultQuizActivity extends AppCompatActivity {
         ProgressBar progressBar = findViewById(R.id.progress_bar);
 
         tvQuizTitle.setText("📚 " + projectName);
-        tvQuestionProgress.setText("📝 Câu hỏi " + (currentIndex + 1) + "/" + total);
-        tvScore.setText("🏆 Điểm: " + score + "/" + (currentIndex + 1));
         
-        int percentage = (int) (((double) (currentIndex + 1) / total) * 100);
-        tvProgressPercentage.setText(percentage + "%");
+        // 🔧 SỬA PROGRESS - Hiển thị câu hỏi vừa hoàn thành
+        tvQuestionProgress.setText("📝 Câu hỏi " + (currentIndex + 1) + "/" + total + " - Vừa hoàn thành");
+        
+        // 🔧 SỬA SCORE - Hiển thị điểm sau khi trả lời câu hiện tại
+        int completedQuestions = currentIndex + 1; // Đã hoàn thành câu currentIndex
+        tvScore.setText("🏆 Điểm: " + score + "/" + total);
+        
+        // 🔧 SỬA PERCENTAGE - Tính phần trăm câu đã hoàn thành
+        int percentage = (int) (((double) completedQuestions / total) * 100);
+        tvProgressPercentage.setText(percentage + "% hoàn thành");
+        
+        // 🔧 SỬA PROGRESS BAR - Hiển thị số câu đã hoàn thành
         progressBar.setMax(total);
-        progressBar.setProgress(currentIndex + 1);
+        progressBar.setProgress(completedQuestions); // Số câu đã hoàn thành
 
         // Set result content
         setupResultContent();
@@ -149,9 +157,9 @@ public class ResultQuizActivity extends AppCompatActivity {
     private void setupClickListeners() {
         AppCompatButton btnNext = findViewById(R.id.btn_next_question);
         
-        // Change button text if it's the last question
+        // 🔧 SỬA BUTTON TEXT - Kiểm tra chính xác câu cuối
         if (currentIndex >= total - 1) {
-            btnNext.setText("🏁 Xem kết quả");
+            btnNext.setText("🏁 Xem kết quả tổng");
         } else {
             btnNext.setText("🚀 Câu tiếp theo");
         }
@@ -166,9 +174,10 @@ public class ResultQuizActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         
-        // Set progress info
+        // 🔧 SỬA PROGRESS INFO - Hiển thị thông tin chính xác
         TextView progressInfo = dialogView.findViewById(R.id.quiz_progress_info);
-        progressInfo.setText("Tiến độ hiện tại: " + (currentIndex + 1) + "/" + total + " câu (Điểm: " + score + ")");
+        int completedQuestions = currentIndex + 1; // Đã hoàn thành câu currentIndex
+        progressInfo.setText("Tiến độ hiện tại: " + completedQuestions + "/" + total + " câu đã hoàn thành (Điểm: " + score + "/" + completedQuestions + ")");
         
         // Continue button
         dialogView.findViewById(R.id.btn_continue_quiz).setOnClickListener(v -> dialog.dismiss());

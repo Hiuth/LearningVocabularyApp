@@ -64,6 +64,10 @@
     <color name="note_mint">#C4FFF3</color>
     <color name="note_coral">#FFC4C4</color>
 
+    <!-- THÊM MỚI - Status Bar và Navigation Bar - Dark Mode -->
+    <color name="status_bar_dark">#0C1016</color>          <!-- Match background -->
+    <color name="navigation_bar_dark">#111827</color>      <!-- Slightly lighter -->
+
     <!-- GIỮ NGUYÊN - Quiz colors -->
     <color name="quiz_complete_bg">#1A1A1A</color>
     <color name="quiz_card_bg">#D3D3D3</color>

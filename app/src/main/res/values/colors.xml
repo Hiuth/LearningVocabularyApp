@@ -43,7 +43,7 @@
     <color name="note_border_light">#E0F0FF</color>
     <color name="note_border_medium">#D1E7FF</color>
     <color name="header_background">#ffffff</color>
-    <color name="header_line">#CBD5E0</color>
+    <color name="header_line">#FFFFFF</color>
     <color name="tab_selected_underline">#42A5F5</color>
     <color name="note_yellow">#FFF0B3</color>
     <color name="note_pink">#FFA1AC</color>
@@ -110,4 +110,9 @@
     <color name="quiz_sunset_bg_start">#FFF8E1</color>
     <color name="quiz_sunset_bg_center">#FFE0B2</color>
     <color name="quiz_sunset_bg_end">#FFCC80</color>
+
+    <!-- THÊM MỚI - Status Bar và Navigation Bar - Light Mode -->
+    <color name="status_bar_light">#FFFFFF</color>         <!-- Light blue -->
+    <color name="navigation_bar_light">#FFFFFF</color>     <!-- White -->
+
 </resources>

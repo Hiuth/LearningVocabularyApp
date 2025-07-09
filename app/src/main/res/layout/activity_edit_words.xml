@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background_color"
     android:elevation="0dp"
     android:tag="background">
 
     <!-- Header with navigation -->
     <LinearLayout
+        android:id="@+id/header_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@drawable/note_header_background"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -60,14 +61,59 @@
 
     </LinearLayout>
 
-    <!-- Bỏ Word Count Section riêng -->
-    <!-- Word Count Section đã được chuyển xuống dưới -->
+    <!-- Footer Action Buttons - FIXED AT BOTTOM -->
+    <LinearLayout
+        android:id="@+id/bottom_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/note_header_background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:tag="footer">
 
-    <!-- Main Content -->
+        <!-- Add New Word Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_word_button"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_button"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="➕ Thêm từ mới"
+            android:textAllCaps="false"
+            android:textColor="@color/note_text_button"
+            android:textSize="15sp" />
+
+        <!-- Start Quiz Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/start_quiz_button"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_button"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="🚀 Bắt đầu kiểm tra"
+            android:textAllCaps="false"
+            android:textColor="@color/note_text_button"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <!-- Main Content - BETWEEN HEADER AND FOOTER -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header_section"
+        android:layout_above="@id/bottom_header"
         android:background="@drawable/note_page_background"
         android:padding="5dp">
 
@@ -95,7 +141,7 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <!-- Header Section - Lùi vào giữa -->
+                <!-- Header Section -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -137,7 +183,7 @@
 
             </LinearLayout>
 
-            <!-- Words List Section - Title với Count bên cạnh -->
+            <!-- Words List Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -165,7 +211,7 @@
 
             </LinearLayout>
 
-            <!-- RecyclerView for Words - Directly on Note Paper -->
+            <!-- RecyclerView for Words -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewWords"
                 android:layout_width="match_parent"
@@ -173,7 +219,7 @@
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never" />
 
-            <!-- Empty State - Directly on Note Paper -->
+            <!-- Empty State -->
             <LinearLayout
                 android:id="@+id/empty_state"
                 android:layout_width="match_parent"
@@ -204,49 +250,4 @@
 
     </ScrollView>
 
-    <!-- Footer Action Buttons - Style giống Header -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/note_header_background"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="16dp"
-        android:gravity="center_vertical"
-        android:tag="footer">
-
-        <!-- Add New Word Button -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/add_word_button"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/bottom_button"
-            android:elevation="0dp"
-            android:stateListAnimator="@null"
-            android:text="➕ Thêm từ mới"
-            android:textAllCaps="false"
-            android:textColor="@color/note_text_button"
-            android:textSize="15sp" />
-
-        <!-- Start Quiz Button -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/start_quiz_button"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:background="@drawable/bottom_button"
-            android:elevation="0dp"
-            android:stateListAnimator="@null"
-            android:text="🚀 Bắt đầu kiểm tra"
-            android:textAllCaps="false"
-            android:textColor="@color/note_text_button"
-            android:textSize="15sp" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

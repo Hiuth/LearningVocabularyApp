@@ -3,6 +3,12 @@
     <style name="Base.Theme.LearningVocabularyApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        
+        <!-- 🎨 STATUS BAR & NAVIGATION BAR - Light Mode -->
+        <item name="android:statusBarColor">@color/status_bar_light</item>
+        <item name="android:navigationBarColor">@color/navigation_bar_light</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 
     <style name="Theme.LearningVocabularyApp" parent="Base.Theme.LearningVocabularyApp" />

@@ -107,9 +107,10 @@ public class QuizActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         
-        // Set progress info
+        // 🔧 SỬA PROGRESS INFO - Hiển thị thông tin chính xác
         TextView progressInfo = dialogView.findViewById(R.id.quiz_progress_info);
-        progressInfo.setText("Tiến độ hiện tại: " + (currentIndex + 1) + "/" + questions.size() + " câu (Điểm: " + score + ")");
+        int completedQuestions = currentIndex; // Số câu đã hoàn thành
+        progressInfo.setText("Tiến độ hiện tại: " + completedQuestions + "/" + questions.size() + " câu đã hoàn thành (Điểm: " + score + "/" + completedQuestions + ")");
         
         // Continue button
         dialogView.findViewById(R.id.btn_continue_quiz).setOnClickListener(v -> dialog.dismiss());
@@ -164,13 +165,19 @@ public class QuizActivity extends AppCompatActivity {
         
         Question q = questions.get(currentIndex);
 
-        // Update progress
+        // 🔧 SỬA PROGRESS - Hiển thị câu hỏi hiện tại
         TextView tvQuestionProgress = findViewById(R.id.tv_question_progress);
         tvQuestionProgress.setText("📝 Câu hỏi " + (currentIndex + 1) + "/" + questions.size());
 
+        // 🔧 SỬA PROGRESS BAR - Hiển thị tiến độ các câu đã hoàn thành
         ProgressBar progressBar = findViewById(R.id.progress_bar);
         progressBar.setMax(questions.size());
-        progressBar.setProgress(currentIndex + 1);
+        progressBar.setProgress(currentIndex); // currentIndex = số câu đã hoàn thành
+
+        // 🔧 SỬA PROGRESS PERCENTAGE - Tính phần trăm câu đã hoàn thành
+        TextView tvProgressPercentage = findViewById(R.id.tv_progress_percentage);
+        int percentage = (int) (((double) currentIndex / questions.size()) * 100);
+        tvProgressPercentage.setText(percentage + "% hoàn thành");
 
         // Update question content
         TextView tvDirection = findViewById(R.id.tv_translate_direction);
@@ -187,7 +194,9 @@ public class QuizActivity extends AppCompatActivity {
         tvQuestionWord.setText(q.questionText);
         etAnswer.setText("");
         etAnswer.requestFocus();
-        tvScore.setText("🏆 " + score + "/" + currentIndex);
+        
+        // 🔧 SỬA SCORE DISPLAY - Hiển thị điểm của các câu đã hoàn thành
+        tvScore.setText("🏆 " + score + "/" + questions.size());
     }
 
     private void checkAnswer() {
@@ -202,7 +211,10 @@ public class QuizActivity extends AppCompatActivity {
         Question q = questions.get(currentIndex);
         boolean isCorrect = userAnswer.equalsIgnoreCase(q.answerText);
 
-        if (isCorrect) score++;
+        // 🔧 UPDATE SCORE - Cập nhật điểm ngay khi trả lời
+        if (isCorrect) {
+            score++;
+        }
 
         // Lấy project images
         int projectId = getIntent().getIntExtra("PROJECT_ID", -1);
@@ -222,7 +234,7 @@ public class QuizActivity extends AppCompatActivity {
         intent.putExtra("USER_ANSWER", userAnswer);
         intent.putExtra("CURRENT_INDEX", currentIndex);
         intent.putExtra("TOTAL", questions.size());
-        intent.putExtra("SCORE", score);
+        intent.putExtra("SCORE", score); // Score đã được update
         intent.putExtra("PROJECT_NAME", getIntent().getStringExtra("PROJECT_NAME"));
         intent.putExtra("MEME_IMAGE", memeBytes);
         startActivityForResult(intent, 100);
@@ -233,6 +245,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
+                // 🔧 UPDATE INDEX - Chuyển sang câu tiếp theo
                 currentIndex++;
                 showQuestion();
             } else if (resultCode == RESULT_CANCELED && data != null) {

@@ -1,9 +1,14 @@
 package com.example.learningvocabularyapp.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,6 +40,10 @@ public class EditVocabularyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 🔧 THÊM - Prevent keyboard from pushing bottom header
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         setContentView(R.layout.activity_edit_words);
         // Khởi tạo views
         initViews();
@@ -48,6 +57,9 @@ public class EditVocabularyActivity extends AppCompatActivity {
         loadVocabularyList();
 
         setupAddWordForm();
+
+        // 🔧 THÊM - Alternative method to handle keyboard behavior
+        setupKeyboardBehavior();
     }
 
     private void initViews() {
@@ -218,6 +230,7 @@ public class EditVocabularyActivity extends AppCompatActivity {
     }
 
     private void hideAddWordForm() {
+        hideKeyboard(); // <-- Thêm dòng này
         // Reset form trước khi hide
         resetAddWordForm();
         
@@ -238,7 +251,7 @@ public class EditVocabularyActivity extends AppCompatActivity {
             if (vietnamese.isEmpty()) etVietnamese.setError("Vui lòng nhập nghĩa");
             return;
         }
-        
+        hideKeyboard(); // <-- Thêm dòng này
         // Lưu vào database
         db.CreateVocabulary(projectId, new Vocabulary(english, vietnamese));
         loadVocabularyList(); // Sẽ tự động cập nhật count
@@ -299,6 +312,7 @@ public class EditVocabularyActivity extends AppCompatActivity {
             if (vietnamese.isEmpty()) etVietnamese.setError("Vui lòng nhập nghĩa");
             return;
         }
+        hideKeyboard(); // <-- Thêm dòng này
 
         // Cập nhật database
         editingVocabulary.setWord(english);
@@ -311,5 +325,37 @@ public class EditVocabularyActivity extends AppCompatActivity {
         // Reset form và hide
         resetAddWordForm();
         hideAddWordForm();
+    }
+
+    // 🔧 THÊM - Alternative method to handle keyboard behavior
+    private void setupKeyboardBehavior() {
+        final View rootView = findViewById(android.R.id.content);
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                rootView.getWindowVisibleDisplayFrame(r);
+                int screenHeight = rootView.getRootView().getHeight();
+                int keypadHeight = screenHeight - r.bottom;
+
+                View bottomHeader = findViewById(R.id.bottom_header);
+                if (keypadHeight > screenHeight * 0.15) { // Keyboard is showing
+                    // Keyboard visible - keep bottom header at original position
+                    bottomHeader.setTranslationY(0);
+                } else {
+                    // Keyboard hidden - ensure bottom header stays at bottom
+                    bottomHeader.setTranslationY(0);
+                }
+            }
+        });
+    }
+
+    // Thêm hàm này vào class
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
